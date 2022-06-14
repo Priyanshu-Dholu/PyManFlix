@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- vue js -->
+  <script src="https://unpkg.com/vue@3"></script>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!-- Video JS CSS -->
+  <link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" />
+  <!-- Forest -->
+  <link href="https://unpkg.com/@videojs/themes@1/dist/forest/index.css" rel="stylesheet">
+  <title>ManFlix</title>
+  <style>
+    *{
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">ManFlix</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/home"><span class="iconify"
+                data-icon="ant-design:home-outlined" data-width="30" data-height="30"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./"><span class="iconify" data-icon="carbon:add-alt" data-width="30" data-height="30"></span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled">Disabled</a>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Nav Ends -->
+  <div class="container mt-2">
+    <div class="row">
+      <!-- Movie Starts -->
+      {% for mov in all_movies %}
+      <div class="col-4">
+        <div class="card mt-2 mb-2" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{ mov.title }}</h5>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              Language: <span class="iconify" data-icon="uil:letter-hindi-a"></span>
+              <span class="iconify" data-icon="icon-park-outline:english"></span>
+            </li>
+            <li class="list-group-item">
+              Quality: <span class="iconify" data-icon="bi:badge-hd"></span>
+              <span class="iconify" data-icon="simple-icons:dolby"></span>
+            </li>
+            <li class="list-group-item">
+              <span class="iconify" data-icon="iwwa:year"></span> {{ mov.year }}              
+            </li>
+          </ul>
+          <div class="card-body">
+            <div id="{{ mov.id }}">
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                data-bs-target="#myModal-{{ mov.id }}">
+                Watch <span class="iconify" data-icon="akar-icons:play"></span>
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="myModal-{{ mov.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-fullscreen">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">{{ mov.title }}</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <video id="my-video" class="video-js vjs-theme-forest vjs-fluid" controls preload="auto"
+                        width="auto" height="auto" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                        <source src="{{ mov.link }}" type="video/mp4" />
+                        <source src="MY_VIDEO.webm" type="video/webm" />
+                        <p class="vjs-no-js">
+                          To view this video please enable JavaScript, and consider upgrading to a
+                          web browser that
+                          <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5
+                            video</a>
+                        </p>
+                      </video>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Ends -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Movie Ends -->
+    </div>
+  </div>
+  <!-- Movie Dashboard -->
+
+
+  <script src="https://vjs.zencdn.net/7.19.2/video.min.js"></script>
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+  <!-- Iconify -->
+  <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+
+</body>
+
+</html>
