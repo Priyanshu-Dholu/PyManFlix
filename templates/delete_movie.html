@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %} ❌ {% endblock %}
+{% block body %}
+
+<!-- Table -->
+
+<div class="table-responsive mt-2">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Year</th>
+                <th scope="col">Link</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mov in all_movies %}
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{mov.title}}</td>
+                <td>{{mov.year}}</td>
+                <td>{{mov.link[0:5]}}</td>
+                <td><a href="/delete/{{mov.id}}" class="btn btn-outline-danger" role="button">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

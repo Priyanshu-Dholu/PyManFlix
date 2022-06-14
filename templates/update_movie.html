@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %} Update {% endblock %}
+{% block body %}
+
+<!-- Form -->
+<div class="container m-2">
+    <form action="/update/{{movie.id}}" method="post">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Movie Title</label>
+            <input type="text" class="form-control" name="title" value="{{movie.title}}" id="exampleInputEmail1" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Year</label>
+            <input type="text" class="form-control" name="year" value="{{movie.year}}" id="exampleInputPassword1">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Link</label>
+            <input type="text" class="form-control" name="link" value="{{movie.link}}" id="exampleInputPassword1">
+        </div>
+
+        <button type="submit" class="btn btn-outline-warning">Update</button>
+    </form>
+</div>
+
+{% endblock %}
