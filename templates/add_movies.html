@@ -4,20 +4,34 @@
 
 <!-- Form -->
 <div class="container m-2">
-    <form action="/" method="post">
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Movie Title</label>
-            <input type="text" class="form-control" name="title" id="exampleInputEmail1" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Year</label>
-            <input type="text" class="form-control" name="year" id="exampleInputPassword1">
-        </div>
+    <form action="/" method="post">        
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Link</label>
-            <input type="text" class="form-control" name="link" id="exampleInputPassword1">
+            <input type="text" required class="form-control" name="link" id="exampleInputPassword1">
         </div>
-
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">TMDB Movie ID</label>
+            <input type="text" required class="form-control" name="movie_id_tmd" id="exampleInputPassword1">
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="quality" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                <span class="iconify" data-icon="bi:badge-hd"></span>
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="dolby_audio" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                <span class="iconify" data-icon="simple-icons:dolby"></span>
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="dual_audio" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                <span class="iconify" data-icon="uil:letter-hindi-a"></span>
+                <span class="iconify" data-icon="icon-park-outline:english"></span>
+            </label>
+        </div>
         <button type="submit" class="btn btn-outline-primary">Add</button>
     </form>
 </div>
@@ -34,7 +48,9 @@
                 <th scope="col">Title</th>
                 <th scope="col">Year</th>
                 <th scope="col">Link</th>
-                <th scope="col">Action</th>
+                <th scope="col">Language</th>
+                <th scope="col">Quality</th>
+                <th scope="col">Audio</th>                
             </tr>
         </thead>
         <tbody>
@@ -43,8 +59,32 @@
                 <th scope="row">{{loop.index}}</th>
                 <td>{{mov.title}}</td>
                 <td>{{mov.year}}</td>
-                <td>{{mov.link[0:5]}}</td> 
-                <td><a href="/update/{{mov.id}}" class="btn btn-outline-warning" role="button">Update</a></td>              
+                <td>{{mov.link[0:5]}}</td>
+                <td>
+                    {% if mov.dual_audio == 1 %}
+                        <span class="iconify" data-icon="uil:letter-hindi-a"></span>
+                        <span class="iconify" data-icon="icon-park-outline:english"></span>
+                    {% else %}
+                        <span class="iconify" data-icon="icon-park-outline:english"></span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if mov.quality == 1 %}
+                    <span class="iconify" data-icon="bi:badge-hd"></span>
+                    {% else %}
+                    <span class="iconify" data-icon="bi:badge-sd"></span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if mov.dolby_audio == 1 %}
+                    <span class="iconify" data-icon="simple-icons:dolby"></span>
+                    {% else %}
+                    <span class="iconify" data-icon="cil:audio-description"></span>
+                    {% endif %}
+                </td>
+                
+                <td><a href="/update/{{mov.id}}" class="btn btn-outline-warning" role="button">Update</a></td>
+                <td><a href="/delete/{{mov.id}}" class="btn btn-outline-danger" role="button">Delete</a></td>
             </tr>
             {% endfor %}
         </tbody>

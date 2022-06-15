@@ -17,7 +17,10 @@
             <label for="exampleInputEmail1" class="form-label">Link</label>
             <input type="text" class="form-control" name="link" value="{{movie.link}}" id="exampleInputPassword1">
         </div>
-
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">TMDB Movie ID</label>
+            <input type="text" required class="form-control" name="movie_id_tmd" value="{{movie.movie_id_tmd}} id="exampleInputPassword1">
+        </div>      
         <button type="submit" class="btn btn-outline-warning">Update</button>
     </form>
 </div>
