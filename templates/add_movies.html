@@ -82,9 +82,12 @@
                     <span class="iconify" data-icon="cil:audio-description"></span>
                     {% endif %}
                 </td>
-                
-                <td><a href="/update/{{mov.id}}" class="btn btn-outline-warning" role="button">Update</a></td>
-                <td><a href="/delete/{{mov.id}}" class="btn btn-outline-danger" role="button">Delete</a></td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                        <a href="/update/{{mov.id}}" class="btn btn-outline-warning" role="button">Update</a>
+                        <a href="/delete/{{mov.id}}" class="btn btn-outline-danger" role="button">Delete</a>                       
+                    </div>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

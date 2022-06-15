@@ -2,92 +2,96 @@
 {% block title %} 🏠 {% endblock %}
 {% block body %}
 
-  <div class="container mt-2">
-    <div class="row">
-      <!-- Movie Starts -->
-      {% for mov in all_movies %}
-      <div class="col-md-4">
-        <div class="card mt-2 mb-2" style="width: 15rem;">
-          <img src="{{ mov.poster_link }}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">{{ mov.title }}</h5>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              Language: 
-              {% if mov.dual_audio == 1 %}
-                <span class="iconify" data-icon="uil:letter-hindi-a"></span>
-                <span class="iconify" data-icon="icon-park-outline:english"></span>
-              {% else %}
-                <span class="iconify" data-icon="icon-park-outline:english"></span>
-              {% endif %}              
-            </li>
-            <li class="list-group-item">
-              Quality:
-                {% if mov.quality == 1 and mov.dolby_audio == 1 %}
-                  <span class="iconify" data-icon="bi:badge-hd"></span>
-                  <span class="iconify" data-icon="simple-icons:dolby"></span>
-                {% elif mov.quality == 1 and mov.dolby_audio == 0%}
-                  <span class="iconify" data-icon="bi:badge-hd"></span>
-                  <span class="iconify" data-icon="cil:audio-description"></span>
-                {% elif mov.quality == 0 and mov.dolby_audio == 1 %}
-                  <span class="iconify" data-icon="bi:badge-sd"></span>
-                  <span class="iconify" data-icon="simple-icons:dolby"></span>
-                {% else %}
-                  <span class="iconify" data-icon="bi:badge-sd"></span>
-                  <span class="iconify" data-icon="cil:audio-description"></span>
-                {% endif %}              
-            </li>
-            <li class="list-group-item">
-              <span class="iconify" data-icon="iwwa:year"></span> {{ mov.year }}              
-            </li>
-          </ul>
-          <div class="card-body">
-            <div id="{{ mov.id }}">
-              <!-- Button trigger modal -->
+<div class="container mt-2">
+  <div class="row">
+    <!-- Movie Starts -->
+    {% for mov in all_movies %}
+    <div class="col-md-4">
+      <div class="card mt-2 mb-2" style="width: 15rem;">
+        <img src="{{ mov.poster_link }}" class="card-img-top" alt="{{ mov.title }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ mov.title }}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            Language:
+            {% if mov.dual_audio == 1 %}
+            <span class="iconify" data-icon="uil:letter-hindi-a"></span>
+            <span class="iconify" data-icon="icon-park-outline:english"></span>
+            {% else %}
+            <span class="iconify" data-icon="icon-park-outline:english"></span>
+            {% endif %}
+          </li>
+          <li class="list-group-item">
+            Quality:
+            {% if mov.quality == 1 and mov.dolby_audio == 1 %}
+            <span class="iconify" data-icon="bi:badge-hd"></span>
+            <span class="iconify" data-icon="simple-icons:dolby"></span>
+            {% elif mov.quality == 1 and mov.dolby_audio == 0%}
+            <span class="iconify" data-icon="bi:badge-hd"></span>
+            <span class="iconify" data-icon="cil:audio-description"></span>
+            {% elif mov.quality == 0 and mov.dolby_audio == 1 %}
+            <span class="iconify" data-icon="bi:badge-sd"></span>
+            <span class="iconify" data-icon="simple-icons:dolby"></span>
+            {% else %}
+            <span class="iconify" data-icon="bi:badge-sd"></span>
+            <span class="iconify" data-icon="cil:audio-description"></span>
+            {% endif %}
+          </li>
+          <li class="list-group-item">
+            <span class="iconify" data-icon="iwwa:year"></span> {{ mov.year }}
+          </li>
+        </ul>
+        <div class="card-body">
+          <div id="{{ mov.id }}">
+            <!-- Button trigger modal -->
+
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
               <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                 data-bs-target="#myModal-{{ mov.id }}">
                 Watch <span class="iconify" data-icon="akar-icons:play"></span>
               </button>
+              <a href="" class="btn btn-outline-danger" role="button">Download <span class="iconify" data-icon="akar-icons:arrow-down"></span></a>
+            </div>
 
-              <!-- Modal -->
-              <div class="modal fade" id="myModal-{{ mov.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-fullscreen">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">{{ mov.title }}</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <video id="my-video" class="video-js vjs-theme-forest vjs-fluid" controls preload="auto"
-                        width="auto" height="auto" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
-                        <source src="{{ mov.link }}" type="video/mp4" />
-                        <source src="MY_VIDEO.webm" type="video/webm" />
-                        <p class="vjs-no-js">
-                          To view this video please enable JavaScript, and consider upgrading to a
-                          web browser that
-                          <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5
-                            video</a>
-                        </p>
-                      </video>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal-{{ mov.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ mov.title }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <video id="my-video" class="video-js vjs-fluid" controls preload="auto" width="auto" height="auto"
+                      poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+                      <source src="{{ mov.link }}" type="video/mp4" />
+                      <source src="MY_VIDEO.webm" type="video/webm" />
+                      <p class="vjs-no-js">
+                        To view this video please enable JavaScript, and consider upgrading to a
+                        web browser that
+                        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5
+                          video</a>
+                      </p>
+                    </video>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                   </div>
                 </div>
               </div>
-              <!-- Ends -->
             </div>
+            <!-- Ends -->
           </div>
-
         </div>
-      </div>
-      {% endfor %}
 
-      <!-- Movie Ends -->
+      </div>
     </div>
+    {% endfor %}
+
+    <!-- Movie Ends -->
   </div>
-  <!-- Movie Dashboard -->
+</div>
+<!-- Movie Dashboard -->
 {% endblock %}
