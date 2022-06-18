@@ -6,92 +6,55 @@
   <div class="row">
     <!-- Movie Starts -->
     {% for mov in all_movies %}
-    <div class="col-md-4">
-      <div class="card mt-2 mb-2" style="width: 15rem;">
-        <img src="{{ mov.poster_link }}" class="card-img-top" alt="{{ mov.title }}">
-        <div class="card-body">
-          <h5 class="card-title">{{ mov.title }}</h5>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            Language:
-            {% if mov.dual_audio == 1 %}
-            <span class="iconify" data-icon="uil:letter-hindi-a"></span>
-            <span class="iconify" data-icon="icon-park-outline:english"></span>
-            {% else %}
-            <span class="iconify" data-icon="icon-park-outline:english"></span>
-            {% endif %}
-          </li>
-          <li class="list-group-item">
-            Quality:
-            {% if mov.quality == 1 and mov.dolby_audio == 1 %}
-            <span class="iconify" data-icon="bi:badge-hd"></span>
-            <span class="iconify" data-icon="simple-icons:dolby"></span>
-            {% elif mov.quality == 1 and mov.dolby_audio == 0%}
-            <span class="iconify" data-icon="bi:badge-hd"></span>
-            <span class="iconify" data-icon="cil:audio-description"></span>
-            {% elif mov.quality == 0 and mov.dolby_audio == 1 %}
-            <span class="iconify" data-icon="bi:badge-sd"></span>
-            <span class="iconify" data-icon="simple-icons:dolby"></span>
-            {% else %}
-            <span class="iconify" data-icon="bi:badge-sd"></span>
-            <span class="iconify" data-icon="cil:audio-description"></span>
-            {% endif %}
-          </li>
-          <li class="list-group-item">
-            <span class="iconify" data-icon="iwwa:year"></span> {{ mov.year }}
-          </li>
-        </ul>
-        <div class="card-body">
-          <div id="{{ mov.id }}">
-            <!-- Button trigger modal -->
-
-            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-              <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                data-bs-target="#myModal-{{ mov.id }}">
-                Watch <span class="iconify" data-icon="akar-icons:play"></span>
-              </button>
-              <a href="" class="btn btn-outline-danger" role="button">Download <span class="iconify" data-icon="akar-icons:arrow-down"></span></a>
-            </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="myModal-{{ mov.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-              aria-hidden="true">
-              <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ mov.title }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <video id="my-video" class="video-js vjs-fluid" controls preload="auto" width="auto" height="auto"
-                      poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
-                      <source src="{{ mov.link }}" type="video/mp4" />
-                      <source src="MY_VIDEO.webm" type="video/webm" />
-                      <p class="vjs-no-js">
-                        To view this video please enable JavaScript, and consider upgrading to a
-                        web browser that
-                        <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5
-                          video</a>
-                      </p>
-                    </video>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  </div>
-                </div>
+    <div class="movie_card">
+      <div class="info_section">
+        <div class="movie_header">
+          <img class="locandina" src="{{ mov.poster_link }}" />
+          <h1>{{ mov.title }}</h1>
+          <h4>{{ mov.year }}</h4>
+          {% if mov.dual_audio == 1 %}
+            <span class="iconify" data-icon="uil:letter-hindi-a" style="color: white;"></span>
+            <span class="iconify" data-icon="icon-park-outline:english" style="color: white;"></span>
+          {% else %}
+            <span class="iconify" data-icon="icon-park-outline:english" style="color: white;"></span>
+          {% endif %}
+          {% if mov.quality == 1 and mov.dolby_audio == 1 %}
+            <span class="iconify" data-icon="bi:badge-hd style=" color: white;""></span>
+            <span class="iconify" data-icon="simple-icons:dolby" style="color: white;"></span>
+          {% elif mov.quality == 1 and mov.dolby_audio == 0%}
+            <span class="iconify" data-icon="bi:badge-hd" style="color: white;"></span>
+            <span class="iconify" data-icon="cil:audio-description" style="color: white;"></span>
+          {% elif mov.quality == 0 and mov.dolby_audio == 1 %}
+            <span class="iconify" data-icon="bi:badge-sd" style="color: white;"></span>
+            <span class="iconify" data-icon="simple-icons:dolby" style="color: white;"></span>
+          {% else %}
+            <span class="iconify" data-icon="bi:badge-sd" style="color: white;"></span>
+            <span class="iconify" data-icon="cil:audio-description" style="color: white;"></span>
+          {% endif %}
+        </div>        
+        <div id="{{ mov.id }}">
+          <div class="btn-group-sm ms-3 mt-4" id="button-group-main" role="group" aria-label="Basic mixed styles example">
+            <a href="/movie_screen/{{ mov.id }}" class="btn btn-outline-danger" role="button"><span class="iconify" data-icon="ant-design:play-circle-outlined" data-width="30" data-height="30"></span></a>
+            <a href="{{ mov.link[:-1] + '1' }}" class="btn btn-outline-danger" role="button"><span
+                class="iconify" data-icon="akar-icons:arrow-down" data-width="30" data-height="30"></span></a>
+          </div>           
+            <div class="card m-2 bg-dark text-white" id="card-text">
+              <div class="card-body">
+                {{ mov.movie_overview }}
               </div>
             </div>
-            <!-- Ends -->
-          </div>
+                      
         </div>
-
+      </div>
+      <div class="blur_back" style="
+          background: url('{{ mov.movie_backdrop_link }}');
+          background-size: cover;
+          box-shadow: 0px 0px 100px -45px rgba(255, 51, 0, 0.5);
+          ">
       </div>
     </div>
     {% endfor %}
-
-    <!-- Movie Ends -->
   </div>
 </div>
-<!-- Movie Dashboard -->
+
 {% endblock %}

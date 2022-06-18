@@ -45,6 +45,7 @@
         <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">TMDB ID</th>
                 <th scope="col">Title</th>
                 <th scope="col">Year</th>
                 <th scope="col">Link</th>
@@ -57,6 +58,7 @@
             {% for mov in all_movies %}
             <tr>
                 <th scope="row">{{loop.index}}</th>
+                <td>{{mov.movie_id_tmd}}</td>
                 <td>{{mov.title}}</td>
                 <td>{{mov.year}}</td>
                 <td>{{mov.link[0:5]}}</td>
