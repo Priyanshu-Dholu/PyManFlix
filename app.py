@@ -21,12 +21,13 @@ class Movies(db.Model):
     poster_link = db.Column(db.String(500))
     movie_backdrop_link = db.Column(db.String(500))
     movie_overview = db.Column(db.String(500))
+    trailer_link = db.Column(db.String(125))
     dolby_audio = db.Column(db.Boolean)
     dual_audio = db.Column(db.Boolean)
     added_on = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __repr__(self) -> str:
-        return f"movies('{self.title}','{self.year}','{self.link}','{self.added_on},{self.quality}','{self.dolby_audio}','{self.dual_audio},{self.poster_link},{self.movie_id_tmd}','{self.movie_backdrop_link}','{self.movie_overview}')"
+        return f"movies('{self.title}','{self.year}','{self.link}','{self.added_on},{self.quality}','{self.dolby_audio}','{self.dual_audio},{self.poster_link},{self.movie_id_tmd}','{self.movie_backdrop_link}','{self.movie_overview}','{self.trailer_link}')"
 
 # Home Page
 @app.route('/home')
@@ -46,6 +47,7 @@ def hello_world():
         year = get_movie_detail(3, movie_id_tmd)
         poster_link = get_movie_detail(1, movie_id_tmd)
         movie_backdrop_link = get_movie_detail(4, movie_id_tmd)
+        trailer_link = get_movie_detail(6, movie_id_tmd)
         movie_overview = get_movie_detail(5, movie_id_tmd)
         if quality == None:
             quality = False
@@ -64,7 +66,7 @@ def hello_world():
         else:
             dual_audio = True
         movies = Movies(title=title, year=year, link=link, quality=quality,
-                        dolby_audio=dolby_audio, dual_audio=dual_audio, poster_link=poster_link, movie_id_tmd=movie_id_tmd, movie_backdrop_link=movie_backdrop_link,movie_overview=movie_overview)
+                        dolby_audio=dolby_audio, dual_audio=dual_audio, poster_link=poster_link, movie_id_tmd=movie_id_tmd, movie_backdrop_link=movie_backdrop_link,movie_overview=movie_overview,trailer_link=trailer_link)
         db.session.add(movies)
         db.session.commit()
 
@@ -103,7 +105,8 @@ def update(id):
 @app.route('/movie_screen/<int:id>')
 def movie_screen(id):
     movie = Movies.query.filter_by(id=id).first()
-    return render_template('movie_screen.html', movie=movie)
+    link = movie.link[:-4] + 'raw=1'
+    return render_template('movie_screen.html', movie=movie,link=link)
 
 # Function To Get Movie Details
 def get_movie_detail(operation, movie_id_tmd):
@@ -124,6 +127,9 @@ def get_movie_detail(operation, movie_id_tmd):
         return f'https://image.tmdb.org/t/p/w1280{m.backdrop_path}'
     elif operation == 5:
         return f'{m.overview}'
+    elif operation == 6:
+        link = m['videos']['results'][0]["key"]
+        return 'https://www.youtube.com/embed/' + link
     else:
         return 'Error'
 

@@ -25,8 +25,8 @@ def get_movie_detail(movie_id_tmd):
     tmdb.debug = True
     movie = Movie()
     m = movie.details(movie_id_tmd)
-    # Get Youtube Id From m.keys() dictionary
-    print(m.key)
+    link = m['videos']['results'][0]["key"]
+    print('https://www.youtube.com/embed/' + link)
 
 
 def get_movie_detail2(operation, movie_id_tmd):
