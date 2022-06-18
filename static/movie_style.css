@@ -2,7 +2,7 @@
   position: relative;
   display: block;
   width: 82%;
-  height: 450px;
+  height: 380px;
   margin: 10px auto;
   overflow: hidden;
   border-radius: 10px;
@@ -37,7 +37,7 @@
 
 .movie_card .info_section .movie_header h1 {
   color: #fff;
-  font-size: larger;
+  font-size: small;
 }
 
 .movie_card .info_section .movie_header h4 {
@@ -139,7 +139,7 @@
   }
 
   .info_section {
-    background: linear-gradient(to right, #0d0d0c 20%, transparent 100%);
+    background: linear-gradient(to right, #0d0d0c 38%, transparent 100%);
   }
 
   .blur_back {

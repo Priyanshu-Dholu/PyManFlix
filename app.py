@@ -29,8 +29,6 @@ class Movies(db.Model):
         return f"movies('{self.title}','{self.year}','{self.link}','{self.added_on},{self.quality}','{self.dolby_audio}','{self.dual_audio},{self.poster_link},{self.movie_id_tmd}','{self.movie_backdrop_link}','{self.movie_overview}')"
 
 # Home Page
-
-
 @app.route('/home')
 def home():
     all_movies = Movies.query.all()
@@ -38,8 +36,6 @@ def home():
     return render_template('index.html', all_movies=all_movies)
 
 # Add Movie Page
-
-
 @app.route('/', methods=['GET', 'POST'])
 def hello_world():
     if request.method == 'POST':
@@ -77,8 +73,6 @@ def hello_world():
     return render_template('add_movies.html', all_movies=all_movies)
 
 # Delete Movie Function
-
-
 @app.route('/delete/<int:id>')
 def delete(id):
     movie = Movies.query.filter_by(id=id).first()
@@ -86,17 +80,8 @@ def delete(id):
     db.session.commit()
     return redirect(location='/')
 
-# Delete Movie Page
-
-
-@app.route('/delete_movie')
-def delete_movie():
-    all_movies = Movies.query.all()
-    return render_template('delete_movie.html', all_movies=all_movies)
 
 # Update Movie Function
-
-
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
     movie = Movies.query.filter_by(id=id).first()
@@ -115,14 +100,12 @@ def update(id):
     return render_template('update_movie.html', movie=movie)
 
 # Movie Screen
-
-
 @app.route('/movie_screen/<int:id>')
 def movie_screen(id):
     movie = Movies.query.filter_by(id=id).first()
     return render_template('movie_screen.html', movie=movie)
 
-
+# Function To Get Movie Details
 def get_movie_detail(operation, movie_id_tmd):
     tmdb = TMDb()
     tmdb.api_key = 'fb86432acfe5114ca73b86d4cbe66ef2'
@@ -143,7 +126,6 @@ def get_movie_detail(operation, movie_id_tmd):
         return f'{m.overview}'
     else:
         return 'Error'
-
 
 if __name__ == '__main__':
     app.run(debug=True)

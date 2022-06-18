@@ -1,4 +1,4 @@
-from tmdbv3api import TMDb,Movie
+from tmdbv3api import TMDb, Movie
 
 # tmdb = TMDb()
 # tmdb.api_key = 'fb86432acfe5114ca73b86d4cbe66ef2'
@@ -24,9 +24,9 @@ def get_movie_detail(movie_id_tmd):
     tmdb.language = 'en'
     tmdb.debug = True
     movie = Movie()
-    m = movie.details(movie_id_tmd) 
-    link = f'{m.overview}'
-    print(link)
+    m = movie.details(movie_id_tmd)
+    # Get Youtube Id From m.keys() dictionary
+    print(m.key)
 
 
 def get_movie_detail2(operation, movie_id_tmd):
@@ -36,11 +36,12 @@ def get_movie_detail2(operation, movie_id_tmd):
     tmdb.debug = True
     movie = Movie()
     m = movie.details(movie_id_tmd)
-    if operation == 1:        
-        link = f'https://image.tmdb.org/t/p/w220_and_h330_face/{m.poster_path}'
-        print(link)        
+    if operation == 1:
+        link = f'https://www.youtube.com/watch?v={m.keys()[0]}'
+        print(link)
     else:
         return 'Error'
+
 
 get_movie_detail(93456)
 # get_movie_detail2(1,93456)
