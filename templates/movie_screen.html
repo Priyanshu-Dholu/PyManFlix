@@ -2,12 +2,7 @@
 {% block title %} 🎬 {% endblock %}
 
 {% block body %}
-
-<div id="player">
-
-</div>
-<div id="test-video">
-    <video id="my-video" class="video-js vjs-fluid" controls preload="auto" width="auto" height="auto"
+    <video id="my-video" class="video-js vjs-fluid" autoplay controls preload="auto" width="auto" height="auto"
     poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
     <source src="{{ movie.link[:-4] + 'raw=1' }}" type="video/mp4" />
     <source src="MY_VIDEO.webm" type="video/webm" />
@@ -18,43 +13,4 @@
             video</a>
     </p>
 </video>
-</div>
-
-
-
-<script src="https://www.youtube.com/player_api"></script>
-<script>
-    // create youtube player
-    var player;
-    var movie_player = document.getElementById('test-video');
-    movie_player.style.visibility = 'hidden';   
-    function onYouTubePlayerAPIReady() {
-        player = new YT.Player('player', {
-            height: '720',
-            width: '1280',
-            videoId: '{{ movie.trailer_link[-11:] }}',
-            events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            }
-        });
-        
-    }
-
-    // autoplay video
-    function onPlayerReady(event) {
-        event.target.playVideo();
-    }
-
-    // when video ends
-    function onPlayerStateChange(event) {       
-        if (event.data === 0) {
-            var element = document.getElementById("player");
-            element.parentNode.removeChild(element);            
-            movie_player.style.visibility = 'visible';            
-        }
-    }
-
-</script>
-
 {% endblock %}

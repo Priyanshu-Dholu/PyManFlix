@@ -119,13 +119,24 @@
   border-radius: 11px;
 }
 
+#image-poster{
+  transition: ease-in-out 0.5s !important;
+}
+#image-poster:hover{
+  transition: ease-in-out 0.5s !important;
+  transform: scale(1.52);
+}
+
 /* .btn-group-vertical>.btn,
 .btn-group>.btn {
   position: relative !important;
   margin-top: 164px !important;
   flex: 1 1 auto !important;
 } */
-
+.modal-backdrop {
+  /* bug fix - no overlay */    
+  display: none !important;    
+}
 @media screen and (min-width: 768px) {
   .movie_header {
     width: 60%;
@@ -149,6 +160,10 @@
 
   #card-text{
     font-size: 17px;
+  }
+  .modal-backdrop {
+    /* bug fix - no overlay */    
+    display: none !important;    
   }
 }
 
@@ -191,5 +206,10 @@
 
   #card-text{
     font-size: 10px;
+  }
+
+  .modal-backdrop {
+    /* bug fix - no overlay */    
+    display: none !important;    
   }
 }
