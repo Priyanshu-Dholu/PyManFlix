@@ -34,6 +34,20 @@ def home():
 
     return render_template('index.html', all_movies=all_movies)
 
+# Searh Movie Page
+@app.route('/search_movies', methods=['POST'])
+def search_movies():
+    if request.method == 'POST':              
+        tag = request.form["searched"]
+        search = "%{}%".format(tag)        
+        mov = Movies.query.filter(Movies.title.like(search)).all()
+        
+        if mov:
+            return render_template('search_movies.html', mov=mov)
+        else:
+            movie_from_db = Movies.query.all()
+            return render_template('search_movies.html', mov=mov)
+        
 # Add Movie Page
 @app.route('/', methods=['GET', 'POST'])
 def hello_world():
