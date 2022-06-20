@@ -4,7 +4,7 @@ from manflix import db
 # Movie Database
 class Movies(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), unique=True)
+    title = db.Column(db.String(150), unique=True)
     year = db.Column(db.DATE)
     link = db.Column(db.String(500))
     quality = db.Column(db.Boolean)
