@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, flash, url_for
 from tmdbv3api import TMDb, Movie
-from manflix import app
+from manflix import app, db
 from manflix.forms import AddMovieForm, SearchMovieForm
 from manflix.models import Movies
 
