@@ -47,12 +47,10 @@ def add_movies():
             dolby_audio = form1.dolby_audio.data
             dual_audio = form1.dual_audio.data
             poster_link = get_movie_detail(1, movie_id_tmd)
-            title = get_movie_detail(2, movie_id_tmd)
-            year = get_movie_detail(3, movie_id_tmd)
-            movie_backdrop_link = get_movie_detail(4, movie_id_tmd)
-            movie_overview = get_movie_detail(5, movie_id_tmd)
+            title = get_movie_detail(2, movie_id_tmd)            
+            movie_backdrop_link = get_movie_detail(4, movie_id_tmd)            
             trailer_link = get_movie_detail(6, movie_id_tmd)
-            movie = Movies(title=title, year=year, link=link, quality=quality, movie_id_tmd=movie_id_tmd, poster_link=poster_link, movie_backdrop_link=movie_backdrop_link, movie_overview=movie_overview, trailer_link=trailer_link, dolby_audio=dolby_audio, dual_audio=dual_audio)
+            movie = Movies(title=title, link=link, quality=quality, movie_id_tmd=movie_id_tmd, poster_link=poster_link, movie_backdrop_link=movie_backdrop_link,trailer_link=trailer_link, dolby_audio=dolby_audio, dual_audio=dual_audio)
             db.session.add(movie)
             db.session.commit()
             flash(f'{ title } - Added Successfully!', 'success')
@@ -121,7 +119,7 @@ def get_movie_detail(operation, movie_id_tmd):
     elif operation == 2:
         return f'{m.original_title}'
     elif operation == 3:
-        return f'{m.release_date}'
+        return m.release_date[:4]
     elif operation == 4:
         return f'https://image.tmdb.org/t/p/w1280{m.backdrop_path}'
     elif operation == 5:
