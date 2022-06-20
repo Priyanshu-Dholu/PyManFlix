@@ -1,43 +1,6 @@
 {% extends 'base.html' %}
-{% block title %} ➕/📝 {% endblock %}
+{% block title %} 🎞 {% endblock %}
 {% block body %}
-
-<!-- Form -->
-<div class="container m-2">
-    <form action="/" method="post">        
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Link</label>
-            <input type="text" required class="form-control" name="link" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">TMDB Movie ID</label>
-            <input type="text" required class="form-control" name="movie_id_tmd" id="exampleInputPassword1">
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="quality" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-                <span class="iconify" data-icon="bi:badge-hd"></span>
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="dolby_audio" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-                <span class="iconify" data-icon="simple-icons:dolby"></span>
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="dual_audio" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-                <span class="iconify" data-icon="uil:letter-hindi-a"></span>
-                <span class="iconify" data-icon="icon-park-outline:english"></span>
-            </label>
-        </div>
-        <button type="submit" class="btn btn-outline-primary">Add</button>
-    </form>
-</div>
-
-
-
 <!-- Table -->
 
 <div class="table-responsive">
@@ -94,6 +57,4 @@
             {% endfor %}
         </tbody>
     </table>
-</div>
-
 {% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %} ➕ {% endblock %}
+{% block body %}
+
+<!-- Form -->
+<div class="container m-2">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category,message in messages %}
+    <div class="alert alert-{{ category }} m-2">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <form action="{{ url_for('add_movies') }}" method="post">
+        {{ form1.hidden_tag() }}
+        <div class="mb-3">
+            {{ form1.link.label(class="form-label") }}
+            {{ form1.link(class="form-control") }}
+
+        </div>
+        <div class="mb-3">
+            {{ form1.movie_id_tmd.label(class="form-label") }}
+            {{ form1.movie_id_tmd(class="form-control") }}
+
+        </div>
+        <div class="form-check">
+            {{ form1.quality.label(class="form-check-label") }}
+            {{ form1.quality(class="form-check-input") }}
+            <span class="iconify" data-icon="bi:badge-hd"></span>
+        </div>
+        <div class="form-check">
+            {{ form1.dolby_audio.label(class="form-check-label") }}
+            {{ form1.dolby_audio(class="form-check-input") }}
+            <span class="iconify" data-icon="simple-icons:dolby"></span>
+
+        </div>
+        <div class="form-check">
+            {{ form1.dual_audio.label(class="form-check-label") }}
+            {{ form1.dual_audio(class="form-check-input") }}
+            <span class="iconify" data-icon="uil:letter-hindi-a"></span>
+            <span class="iconify" data-icon="icon-park-outline:english"></span>
+        </div>
+        {{ form1.submit(class="btn btn-outline-primary") }}
+    </form>
+</div>
+
+<div class="container m-2">
+    <form action="{{ url_for('add_movies') }}" method="post">
+        <div class="mb-3">
+            {{ form2.movie_name.label(class="form-label") }}
+            {{ form2.movie_name(class="form-control") }}
+        </div>
+
+        {{ form2.submit(class="btn btn-outline-primary") }}
+    </form>
+</div>
+
+<div class="container mt-2">
+    <div class="row">
+        <!-- Movie Starts -->
+        {% for mov in movie_id %}
+        <div class="col-md-4">
+            <div class="card mt-2 mb-2" style="width: 15rem;">
+                <!-- <img src="{{ mov.poster_link }}" class="card-img-top" alt="{{ mov.title }}"> -->
+                <div class="card-body">
+                    <h5 class="card-title">{{ mov[1] }}</h5>
+                    {{ mov[0] }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

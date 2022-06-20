@@ -31,7 +31,7 @@
             color: rgb(55, 52, 234);
         }
 
-        #delete-icon:hover {
+        #db-icon:hover {
             transition: all 0.5s ease-in-out;
             color: rgb(220, 250, 49);
         }   
@@ -55,8 +55,10 @@
                                 data-icon="akar-icons:video" data-width="30" data-height="30"></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="admin-icon" aria-current="page" href="/"><span class="iconify"
-                                data-icon="charm:layout-dashboard" data-width="30" data-height="30"></span></span></a>
+                        <a class="nav-link" id="admin-icon" aria-current="page" href="{{ url_for('add_movies') }}"><span class="iconify" data-icon="carbon:add-alt" data-width="30" data-height="30"></span></a>
+                    </li>                    
+                    <li class="nav-item">
+                        <a class="nav-link" id="db-icon" aria-current="page" href="{{ url_for('movie_database') }}"><span class="iconify" data-icon="codicon:database" data-width="30" data-height="30"></span></a>
                     </li>                    
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
