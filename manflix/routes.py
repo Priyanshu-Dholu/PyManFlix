@@ -121,7 +121,7 @@ def get_movie_detail(operation, movie_id_tmd):
     elif operation == 2:
         return f'{m.original_title}'
     elif operation == 3:
-        return f'{m.release_date[:4]}'
+        return m.release_date[:4]
     elif operation == 4:
         return f'https://image.tmdb.org/t/p/w1280{m.backdrop_path}'
     elif operation == 5:
