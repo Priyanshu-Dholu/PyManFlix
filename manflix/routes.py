@@ -15,8 +15,21 @@ def not_found(error):
 def not_found(error):
     return render_template('500.html'),404
 
+# Login Page
+@app.route('/', methods=['GET','POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        if username == 'admin' and password == 'admin':
+            return redirect(url_for('home'))
+        else:
+            flash('Invalid Credentials. Please try again.', 'danger')        
+    return render_template('login.html')
+    
+
 # Home Page
-@app.route('/')
+@app.route('/home')
 def home():
     all_movies = Movies.query.all()
     return render_template('index.html', all_movies=all_movies)
