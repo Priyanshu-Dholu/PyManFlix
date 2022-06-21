@@ -75,7 +75,7 @@ def delete(id):
     movie = Movies.query.filter_by(id=id).first()
     db.session.delete(movie)
     db.session.commit()
-    return render_template('movie_database.html')
+    return url_for(movie_database)
 
 
 # Update Movie Function
