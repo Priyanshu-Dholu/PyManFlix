@@ -74,7 +74,7 @@ def delete(id):
     movie = Movies.query.filter_by(id=id).first()
     db.session.delete(movie)
     db.session.commit()
-    return render_template('movie_database.html')
+    return url_for(movie_database)
 
 
 # Update Movie Function
@@ -100,7 +100,7 @@ def update(id):
 def movie_screen(id):
     movie = Movies.query.filter_by(id=id).first()
     link = movie.link[:-4] + 'raw=1'
-    return render_template('movie_screen.html', movie=movie,link=link)
+    return render_template('movie_database.html')
 
 
 # TMDB API Section
