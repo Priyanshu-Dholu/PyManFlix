@@ -17,4 +17,4 @@ class Movies(db.Model):
     dual_audio = db.Column(db.Boolean)
 
     def __repr__(self) -> str:
-        return f"movies('{self.title}','{self.year}','{self.link}',{self.quality}','{self.dolby_audio}','{self.dual_audio},{self.poster_link},{self.movie_id_tmd}','{self.movie_backdrop_link}','{self.movie_overview}','{self.trailer_link}')"
+        return f"movies('{self.title}',{self.year},'{self.link}',{self.quality}','{self.dolby_audio}','{self.dual_audio},{self.poster_link},{self.movie_id_tmd}','{self.movie_backdrop_link}','{self.movie_overview}','{self.trailer_link}')"
