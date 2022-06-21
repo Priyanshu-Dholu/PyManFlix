@@ -101,7 +101,7 @@ def update(id):
 def movie_screen(id):
     movie = Movies.query.filter_by(id=id).first()
     link = movie.link[:-4] + 'raw=1'
-    return render_template('movie_database.html')
+    return render_template('movie_screen.html', movie=movie,link=link)
 
 
 # TMDB API Section
