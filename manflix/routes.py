@@ -3,6 +3,7 @@ from tmdbv3api import TMDb, Movie
 from manflix import app, db
 from manflix.forms import AddMovieForm, SearchMovieForm
 from manflix.models import Movies
+from manflix import db
 
 # Error Page 404
 @app.errorhandler(404)
