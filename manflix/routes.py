@@ -34,12 +34,11 @@ def search_movies():
         else:
             movie_from_db = Movies.query.all()
             return render_template('search_movies.html', mov=mov,search=tag)
-        
+
 # Add Movie Page
 @app.route('/add_movies', methods=['GET', 'POST'])
 def add_movies():
-    form1 = AddMovieForm()
-    form2 = SearchMovieForm()
+    form1 = AddMovieForm()    
     if request.method == 'POST':
         if form1.validate_on_submit():
             link = form1.link.data
@@ -55,13 +54,16 @@ def add_movies():
             db.session.add(movie)
             db.session.commit()
             flash(f'{ title } - Added Successfully!', 'success')
-            return render_template('add_movies.html', form1=form1, form2=form2)
-        elif form2.validate_on_submit():
-            search = form2.movie_name.data            
-            movie_id = get_movie_id(search)            
-            return render_template('add_movies.html', movie_id=movie_id,search=tag,form1=form1, form2=form2)    
-    return render_template('add_movies.html', form1=form1, form2=form2)
-    
+            return render_template('add_movies.html', form1=form1)   
+        else:
+            search = request.form["searched"]    
+            movie_id = get_movie_id(search)    
+            if movie_id:
+                return render_template('add_movies.html', movie_id=movie_id, search=search,form1=form1)
+            else:
+                flash(f'{ search } - Not Found!', 'danger')
+                return render_template('add_movies.html', form1=form1)                  
+    return render_template('add_movies.html', form1=form1)
 
 # Movie Database Page
 @app.route('/movie_database')
@@ -93,7 +95,6 @@ def update(id):
             quality = False
         db.session.commit()
         return redirect(location='/')
-
     return render_template('update_movie.html', movie=movie)
 
 # Movie Screen
