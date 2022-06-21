@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} Update {% endblock %}
 {% block body %}
-
+{% include 'navbar.html' %}
 <!-- Form -->
 <div class="container m-2">
     <form action="/update/{{movie.id}}" method="post">
