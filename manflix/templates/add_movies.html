@@ -46,14 +46,16 @@
     </form>
 </div>
 
+
 <div class="container m-2">
     <form action="{{ url_for('add_movies') }}" method="post">
         <div class="mb-3">
-            {{ form2.movie_name.label(class="form-label") }}
-            {{ form2.movie_name(class="form-control") }}
+            <label for="exampleFormControlInput1" class="form-label">Search For Movie ID</label>
+            <input type="text" name="searched" class="form-control" id="exampleFormControlInput1" placeholder="Minions">
         </div>
-
-        {{ form2.submit(class="btn btn-outline-primary") }}
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3">Search</button>
+        </div>
     </form>
 </div>
 
@@ -63,15 +65,15 @@
         {% for mov in movie_id %}
         <div class="col-md-4">
             <div class="card mt-2 mb-2" style="width: 15rem;">
-                <!-- <img src="{{ mov.poster_link }}" class="card-img-top" alt="{{ mov.title }}"> -->
+                <img src="https://image.tmdb.org/t/p/w220_and_h330_face{{ mov[2] }}" class="card-img-top"
+                    alt="{{ mov[1] }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ mov[1] }}</h5>
-                    {{ mov[0] }}
+                    ID: {{ mov[0] }}
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
-
 {% endblock %}
