@@ -2,9 +2,9 @@
 {% block title %} 🎬 {% endblock %}
 {% block body %}
 {% include 'navbar.html' %}
-    <video id="my-video" class="video-js vjs-fluid" autoplay controls preload="auto" width="auto" height="auto"
+<video id="my-video" class="video-js vjs-fluid" autoplay controls preload="auto" width="auto" height="auto"
     poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
-    <source src="{{ movie.link[:-4] + 'raw=1' }}" type="video/mp4" />
+    <source src="../static/intro.webm" type="video/mp4" />
     <source src="MY_VIDEO.webm" type="video/webm" />
     <p class="vjs-no-js">
         To view this video please enable JavaScript, and consider upgrading to a
@@ -13,4 +13,13 @@
             video</a>
     </p>
 </video>
+
+<script>
+    const video = document.querySelector('video');
+
+    video.addEventListener('ended', () => {
+        video.setAttribute('src', '{{ movie.link[:-4] + "raw=1" }}')
+    })
+</script>
+
 {% endblock %}
