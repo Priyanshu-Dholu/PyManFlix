@@ -1,19 +1,8 @@
 {% extends 'base.html' %}
 {% block title %} ➕ {% endblock %}
 {% block body %}
-{% include 'navbar.html' %}
-
 <!-- Form -->
 <div class="container m-2">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category,message in messages %}
-    <div class="alert alert-{{ category }} m-2">
-        {{ message }}
-    </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
     <form action="{{ url_for('add_movies') }}" method="post">
         {{ form1.hidden_tag() }}
         <div class="mb-3">

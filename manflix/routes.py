@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, redirect, flash, url_for
+from flask_login import login_user, current_user, logout_user, login_required
 from tmdbv3api import TMDb, Movie
-from manflix import app, db
-from manflix.forms import AddMovieForm, SearchMovieForm
-from manflix.models import Movies
+from manflix import app, db, bcrypt
+from manflix.forms import AddMovieForm, SearchMovieForm, RegistrationForm, LoginForm
+from manflix.models import Movies, UserData
 from manflix import db
 
 # Error Page 404
@@ -16,23 +17,29 @@ def not_found(error):
     return render_template('500.html'),404
 
 # Login Page
-@app.route('/', methods=['GET','POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        if username == 'admin' and password == 'admin':
-            return redirect(url_for('home'))
-        else:
-            flash('Invalid Credentials. Please try again.', 'danger')        
-    return render_template('login.html')
-    
+# @app.route('/', methods=['GET','POST'])
+# def login():
+#     if request.method == 'POST':
+#         username = request.form['username']
+#         password = request.form['password']
+#         if username == 'admin' and password == 'admin':
+#             return redirect(url_for('home'))
+#         else:
+#             flash('Invalid Credentials. Please try again.', 'danger')        
+#     return render_template('login.html')
+
+# Index Page
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 
 # Home Page
 @app.route('/home')
+@login_required
 def home():
     all_movies = Movies.query.all()
-    return render_template('index.html', all_movies=all_movies)
+    return render_template('home.html', all_movies=all_movies)
 
 # Searh Movie Page In Database
 @app.route('/search_movies', methods=['POST'])
@@ -48,8 +55,49 @@ def search_movies():
             movie_from_db = Movies.query.all()
             return render_template('search_movies.html', mov=mov,search=tag)
 
+# Log Out
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect('/')
+
+# User Registration Form
+@app.route('/register',methods = ['GET','POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = RegistrationForm()    
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')       
+        user = UserData(username=form.username.data,email=form.email.data,password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Your Account Has Been Created! You Can Now Log In', 'success')
+        return redirect(url_for('login'))
+    return render_template('register.html',title='Register',form=form)
+
+# User Login Form
+@app.route('/login',methods = ['GET','POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = LoginForm()
+    print('In The Login Page')    
+    if form.is_submitted():        
+        user = UserData.query.filter_by(username=form.username.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            print('Password Hash Is Checked!')
+            login_user(user,remember=form.remember.data)
+            flash(f'You Have Been Logged In!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash(f'Please Check For Username and Password', 'danger')        
+    return render_template('login.html',title='Login',form=form)
+
+
 # Add Movie Page
 @app.route('/add_movies', methods=['GET', 'POST'])
+@login_required
 def add_movies():
     form1 = AddMovieForm()    
     if request.method == 'POST':
@@ -81,12 +129,14 @@ def add_movies():
 
 # Movie Database Page
 @app.route('/movie_database')
+@login_required
 def movie_database():
     all_movies = Movies.query.all()
     return render_template('movie_database.html', all_movies=all_movies)
 
 # Delete Movie Function
 @app.route('/delete/<int:id>')
+@login_required
 def delete(id):
     movie = Movies.query.filter_by(id=id).first()
     db.session.delete(movie)
@@ -96,6 +146,7 @@ def delete(id):
 
 # Update Movie Function
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
+@login_required
 def update(id):
     movie = Movies.query.filter_by(id=id).first()
     if request.method == 'POST':
@@ -113,6 +164,7 @@ def update(id):
 
 # Movie Screen
 @app.route('/movie_screen/<int:id>')
+@login_required
 def movie_screen(id):
     movie = Movies.query.filter_by(id=id).first()
     link = movie.link[:-4] + 'raw=1'
