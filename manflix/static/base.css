@@ -1,0 +1,49 @@
+* {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#navbar-icon{
+    transition: all 0.5s ease-in-out;
+}
+#navbar-icon:hover{    
+    transition: all 0.5s ease-in-out;
+    color: rgb(240, 9, 9);
+    text-decoration:line-through;
+}
+
+#video-icon{
+    transition: all 0.5s ease-in-out;
+}
+#video-icon:hover {
+    transition: all 0.5s ease-in-out;
+    color: rgb(240, 9, 9);
+}
+
+#admin-icon{
+    transition: all 0.5s ease-in-out;
+}
+#admin-icon:hover {
+    transition: all 0.5s ease-in-out;
+    color: rgba(25, 251, 127, 0.968);
+}
+
+#db-icon{
+    transition: all 0.5s ease-in-out;
+}
+#db-icon:hover {
+    transition: all 0.5s ease-in-out;
+    color: rgb(220, 250, 49);
+}
+
+#exit-icon{
+    transition: all 0.5s ease-in-out;
+}
+#exit-icon:hover{
+    transition: all 0.5s ease-in-out;
+    color: rgb(243, 26, 22);
+}
+.btn:focus,
+.btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+}

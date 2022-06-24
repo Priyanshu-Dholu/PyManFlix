@@ -5,7 +5,7 @@
 <div class="container mt-2">
   <div class="row">
     <!-- Movie Starts -->
-    {% for mov in all_movies %}
+    {% for mov in all_movies.items %}
     <!-- Modal -->
     <div class="modal fade" id="exampleModalFullscreen-{{ mov.id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -28,8 +28,8 @@
     <div class="movie_card">
       <div class="info_section">
         <div class="movie_header">
-          <img src="{{ mov.poster_link }}" alt="Watch Trailer" id="image-poster" class="btn locandina" role="button" data-bs-toggle="modal"
-          data-bs-target="#exampleModalFullscreen-{{ mov.id }}">
+          <img src="{{ mov.poster_link }}" alt="Watch Trailer" id="image-poster" class="btn locandina" role="button"
+            data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen-{{ mov.id }}">
           <h1>{{ mov.title }}</h1>
           <h4>{{ mov.movie_release_year }}</h4>
           {% if mov.dual_audio == 1 %}
@@ -71,6 +71,23 @@
     </div>
     {% endfor %}
   </div>
+  
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      {% for page_num in all_movies.iter_pages(left_edge=1, right_edge=1, left_current=1,right_current=2) %}
+        {% if page_num %}
+          {% if all_movies.page == page_num %}
+            <li class="page-item active"><a class="page-link" href="{{ url_for('home',page=page_num) }}">{{ page_num }}</a></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('home',page=page_num) }}">{{ page_num }}</a></li>
+          {% endif %}
+        {% else %}
+          <li class="page-item"><a class="page-link" href="#">...</a></li>
+        {% endif %}      
+      {% endfor %}
+    </ul>
+  </nav>
+  
 </div>
 
 {% endblock %}

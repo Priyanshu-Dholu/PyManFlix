@@ -12,44 +12,20 @@
     <!-- Flixkty CSS -->
     <link rel="stylesheet" href="https://unpkg.com/flickity@2.3.0/dist/flickity.css">
     <!-- Movie Style -->
-    <link href="../static/movie_style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../static/movie_style.css"  />
+    <!-- Base Style -->
+    <link rel="stylesheet" href="../static/base.css">
     <!-- Facicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <title>{% block title %}
 
         {% endblock title %} - ManFlix</title>
-    <style>
-        * {
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-        }
-
-        #video-icon:hover {
-            transition: all 0.5s ease-in-out;
-            color: rgb(240, 9, 9);
-        }
-
-        #admin-icon:hover {
-            transition: all 0.5s ease-in-out;
-            color: rgb(55, 52, 234);
-        }
-
-        #db-icon:hover {
-            transition: all 0.5s ease-in-out;
-            color: rgb(220, 250, 49);
-        }
-
-        .btn:focus,
-        .btn:active {
-            outline: none !important;
-            box-shadow: none !important;
-        }
-    </style>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="">ManFlix</a>
+            <a class="navbar-brand" id="navbar-icon" href="">ManFlix</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -100,7 +76,7 @@
                     <button class="btn-sm btn-outline-success" type="submit"><span class="iconify"
                             data-icon="bi:search"></span></button>
                 </form>
-                <a class="nav-link danger" id="db-icon" aria-current="page" href="{{ url_for('logout') }}"><span
+                <a class="nav-link danger" id="exit-icon" aria-current="page" href="{{ url_for('logout') }}"><span
                         class="iconify" data-icon="bytesize:sign-out" data-width="30" data-height="30"></span></a>
                 {% else %}
                 <div class="d-flex">
