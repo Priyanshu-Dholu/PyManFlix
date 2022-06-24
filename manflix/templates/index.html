@@ -1,16 +1,52 @@
 {% extends 'base.html' %}
 {% block title %} 🎫 {% endblock %}
 {% block body %}
-
-<h4 class="text-secondary mt-1 mx-3">Recentely Added</h4>
-{% for mov in all_movies %}
-<ul class="list-group">
-    {% if mov.movie_release_year >= 2021 %}
-    <li class="list-group-item">{{ mov.title }} <span class="badge bg-danger">New</span></li>
-    {% else %}
-    <li class="list-group-item">{{ mov.title }} - {{ mov.movie_release_year }}</li>
-    {% endif %}
-</ul>
-{% endfor %}
-
+<div class="no-padding col-lg-12  col-md-12 col-sm-12 col-xs-12">
+    <div id="carouselExampleControls" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            {% for m in all_movies %}
+            <div class="carousel-item {% if loop.index == 1 %} active {% endif %}" data-bs-interval="2000"
+                id="slide{{ loop.index }}">
+                <div class="bg-image" style="
+                display: table;
+                width: 100%;
+                background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ m.movie_backdrop_link  }}');
+                background-size: cover;
+                background-position: center top;
+                height: 85vh;
+                color: white;
+                ">
+                </div>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5 class="fw-bold text-light">{{ m.title }}</h5>
+                    {% if m.movie_release_year >= 2020 %}
+                        <p>{{ m.movie_release_year }}<span class="badge bg-danger">New</span></p>
+                    {% else %}
+                        <p>{{ m.movie_release_year }}</p>
+                    {% endif %}                                        
+                    <a href="/movie_screen/{{ m.id }}" class="btn btn-primary" role="button">Watch</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
 {% endblock %}
