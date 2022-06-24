@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
-{% block title %} 🗝 {% endblock %}
+{% block title %} 🎫 {% endblock %}
 {% block body %}
 
+<h4 class="text-secondary mt-1 mx-3">Recentely Added</h4>
+{% for mov in all_movies %}
+<ul class="list-group">
+    {% if mov.movie_release_year >= 2021 %}
+    <li class="list-group-item">{{ mov.title }} <span class="badge bg-danger">New</span></li>
+    {% else %}
+    <li class="list-group-item">{{ mov.title }} - {{ mov.movie_release_year }}</li>
+    {% endif %}
+</ul>
+{% endfor %}
 
 {% endblock %}

@@ -31,7 +31,9 @@ def not_found(error):
 # Index Page
 @app.route('/')
 def index():
-    return render_template('index.html')
+    all_movies = Movies.query.order_by(Movies.id.desc()).limit(3)
+    print(all_movies)
+    return render_template('index.html',all_movies=all_movies)
 
 
 # Home Page
