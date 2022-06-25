@@ -1,5 +1,10 @@
 from datetime import datetime
-from manflix import db
+from manflix import db,login_manager
+from flask_login import UserMixin
+
+@login_manager.user_loader
+def load_user(user_id):
+    return UserData.query.get(int(user_id))
 
 # Movie Database
 class Movies(db.Model):
@@ -17,3 +22,13 @@ class Movies(db.Model):
 
     def __repr__(self) -> str:
         return f"movies('{self.title}','{self.link}',{self.quality}',{self.movie_release_year},'{self.dolby_audio}','{self.dual_audio},{self.poster_link},{self.movie_id_tmd}','{self.movie_backdrop_link}','{self.trailer_link}')"
+
+class UserData(db.Model,UserMixin):
+    id = db.Column(db.Integer,primary_key=True)
+    username = db.Column(db.String(20),unique=True,nullable=False)
+    password = db.Column(db.String(60),nullable=False)
+    email = db.Column(db.String(120),nullable=False)
+    user_image = db.Column(db.String(20),nullable=False,default='default.jpg')
+    
+    def __refr__(self):
+        return f"User('{self.username}','{self.email}','{self.user_image}')"

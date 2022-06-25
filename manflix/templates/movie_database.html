@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% block title %} 🎞 {% endblock %}
 {% block body %}
-{% include 'navbar.html' %}
-
 <!-- Table -->
 <div class="table-responsive">
     <table class="table">
@@ -24,7 +22,7 @@
                 <th scope="row">{{loop.index}}</th>
                 <td>{{mov.movie_id_tmd}}</td>
                 <td>{{mov.title}}</td>
-                <td>{{mov.year}}</td>
+                <td>{{mov.movie_release_year}}</td>
                 <td>{{mov.link[0:5]}}</td>
                 <td>
                     {% if mov.dual_audio == 1 %}

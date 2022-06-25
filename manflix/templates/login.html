@@ -1,52 +1,32 @@
 {% extends 'base.html' %}
 {% block title %} 👥 {% endblock %}
 {% block body %}
-
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category,message in messages %}
-    <div class="alert alert-{{ category }} m-2">
-        {{ message }}
-    </div>
-    {% endfor %}
-    {% endif %}
-{% endwith %}
-<div class="container-fluid vh-70" style="margin-top:5px">
-    <div class="" style="margin-top:20px">
-        <div class="rounded d-flex justify-content-center">
-            <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
-                <div class="text-center">
-                    <h3 class="text-primary">Sign In</h3>
-                </div>
-                <form action="{{ url_for('login') }}" method="post">
-                    <div class="p-4">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text bg-primary"><span class="iconify"
-                                    data-icon="bx:user"></span></span>
-                            <input type="text" name="username" class="form-control" placeholder="Username">
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="signup-form">
+                <form action="" method="post" class="mt-2 rounded p-4 bg-light shadow">
+                    {{ form.hidden_tag() }}
+                    <h4 class="mb-5 text-secondary">Login</h4>
+                    <div class="row">
+                        <div class="mb-3 col-md-12">                           
+                            {{ form.username.label(class="text-Dark") }}
+                            {{ form.username(class="form-control") }}
                         </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text bg-primary"><span class="iconify"
-                                    data-icon="ant-design:lock-filled"></span></span>
-                            <input type="password" name="password" class="form-control" placeholder="password">
+                        <div class="mb-3 col-md-12">                            
+                            {{ form.password.label(class="text-Dark") }}
+                            {{ form.password(class="form-control") }}
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Remember Me
-                            </label>
+                        <div class="mb-3 col-md-12">
+                            {{ form.remember(class="form-check-input") }}
+                            {{ form.remember.label(class="form-check-label") }}
                         </div>
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-primary text-center mt-2" type="submit">
-                                Login
-                            </button>
-                        </div>
-                        <!-- <p class="text-center mt-5">Don't have an account?
-                            <span class="text-primary">Sign Up</span>
-                        </p>
-                        <p class="text-center text-primary">Forgot your password?</p> -->
+                        <div class="d-grid">
+                            {{ form.submit(class="btn btn-outline-success") }}
+                         </div>
                     </div>
                 </form>
+                <p class="text-center text-muted mt-3 text-secondary">If you do not have account, Please <a href="{{ url_for('register') }}">Register Now</a></p>
             </div>
         </div>
     </div>

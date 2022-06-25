@@ -12,3 +12,4 @@ WTForms==3.0.1
 flask-wtf==1.0.1
 psycopg2==2.9.3
 Flask-Bcrypt==1.0.1
+email_validator==1.2.1
