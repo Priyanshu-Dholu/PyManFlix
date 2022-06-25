@@ -1,47 +1,75 @@
 * {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    --nav-load-time: 300ms;
+    --nav-link-load-time: 500ms;
+    --article-load-delay: calc(var(--nav-load-time) + var(--nav-link-load-time))
 }
 
-#navbar-icon{
+/* Loading Animation */
+.navbar {
+    animation: nav-load var(--nav-load-time) ease-in;
+}
+
+.movie_card {
+    animation: article-load 300ms ease-in var(--article-load-delay);
+    animation-fill-mode: forwards;
+    transform: translateY(-20px);
+    opacity: 0;
+}
+
+.info_section {
+    animation: article-load 300ms ease-in calc(var(--article-load-delay) + 200ms);
+    animation-fill-mode: forwards;
+    transform: translateY(-20px);
+    opacity: 0;
+}
+
+#navbar-icon {
     transition: all 0.5s ease-in-out;
 }
-#navbar-icon:hover{    
+
+#navbar-icon:hover {
     transition: all 0.5s ease-in-out;
     color: rgb(240, 9, 9);
-    text-decoration:line-through;
+    text-decoration: line-through;
 }
 
-#video-icon{
+#video-icon {
     transition: all 0.5s ease-in-out;
 }
+
 #video-icon:hover {
     transition: all 0.5s ease-in-out;
     color: rgb(240, 9, 9);
 }
 
-#admin-icon{
+#admin-icon {
     transition: all 0.5s ease-in-out;
 }
+
 #admin-icon:hover {
     transition: all 0.5s ease-in-out;
     color: rgba(25, 251, 127, 0.968);
 }
 
-#db-icon{
+#db-icon {
     transition: all 0.5s ease-in-out;
 }
+
 #db-icon:hover {
     transition: all 0.5s ease-in-out;
     color: rgb(220, 250, 49);
 }
 
-#exit-icon{
+#exit-icon {
     transition: all 0.5s ease-in-out;
 }
-#exit-icon:hover{
+
+#exit-icon:hover {
     transition: all 0.5s ease-in-out;
     color: rgb(243, 26, 22);
 }
+
 .btn:focus,
 .btn:active {
     outline: none !important;

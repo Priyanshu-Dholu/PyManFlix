@@ -12,11 +12,14 @@
     <!-- Flixkty CSS -->
     <link rel="stylesheet" href="https://unpkg.com/flickity@2.3.0/dist/flickity.css">
     <!-- Movie Style -->
-    <link rel="stylesheet" href="../static/movie_style.css"  />
+    <link rel="stylesheet" href="{{ url_for('static', filename='movie_style.css') }}"  />
     <!-- Base Style -->
-    <link rel="stylesheet" href="../static/base.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
     <!-- Facicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    {% block styles %}
+
+    {% endblock styles %}
     <title>{% block title %}
 
         {% endblock title %} - ManFlix</title>

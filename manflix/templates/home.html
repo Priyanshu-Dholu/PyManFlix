@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+{% endblock styles %}
 {% block title %} 🏠 {% endblock %}
 {% block body %}
 
@@ -50,15 +53,16 @@
           {% else %}
           <span class="iconify" data-icon="bi:badge-sd" style="color: white;"></span>
           <span class="iconify" data-icon="cil:audio-description" style="color: white;"></span>
-          {% endif %}
-        </div>
-        <div id="{{ mov.id }}">
-          <div class="btn-group-sm ms-3 mt-4" id="button-group-main" role="group"
+          {% endif %}          
+        </div>        
+        <div id="{{ mov.id }}">          
+          <div class="btn-group btn-group-sm ms-3 mt-4" id="button-group-main" role="group"
             aria-label="Basic mixed styles example">
             <a href="/movie_screen/{{ mov.id }}" class="btn btn-outline-danger" role="button"><span class="iconify"
                 data-icon="ant-design:play-circle-outlined" data-width="30" data-height="30"></span></a>
             <a href="{{ mov.link[:-1] + '1' }}" class="btn btn-outline-danger" role="button"><span class="iconify"
                 data-icon="akar-icons:arrow-down" data-width="30" data-height="30"></span></a>
+            <!-- <a href="" class="btn btn-outline-danger" role="button"><span class="iconify" role="button" data-icon="ooui:watchlist-ltr" data-width="30" data-height="30" data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Watchlist">Add To Watchlist</span></a> -->
           </div>
         </div>
       </div>
