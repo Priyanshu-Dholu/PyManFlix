@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} ➕ {% endblock %}
 {% block body %}
+
 <!-- Form -->
 <div class="container m-2">
     <form action="{{ url_for('add_movies') }}" method="post">
@@ -35,7 +36,6 @@
         {{ form1.submit(class="btn btn-outline-primary") }}
     </form>
 </div>
-
 
 <div class="container m-2">
     <form action="{{ url_for('add_movies') }}" method="post">
