@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+{% endblock styles %}
 {% block title %} 🔍 {% endblock %}
 {% block body %}
 <div class="text-center fs-4">

@@ -44,5 +44,4 @@ def get_movie_id(movie_name):
             elif z == 'poster_path':
                 movie_list_poster.append(i[z])     
             final = list(zip(movie_list_id,movie_list_title , movie_list_poster))                       
-    
     return final

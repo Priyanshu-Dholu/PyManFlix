@@ -5,16 +5,6 @@ from manflix.functions import get_movie_detail, get_movie_id
 from manflix.forms import AddMovieForm, SearchMovieForm, RegistrationForm, LoginForm
 from manflix.models import Movies, UserData
 
-# Error Page 404
-@app.errorhandler(404)
-def not_found(error):
-    return render_template('404.html'), 404
-
-# Error Page 500
-@app.errorhandler(500)
-def not_found(error):
-    return render_template('500.html'),404
-
 # Index Page
 @app.route('/')
 def index():
@@ -122,6 +112,9 @@ def movie_database():
     all_movies = Movies.query.all()
     return render_template('movie_database.html', all_movies=all_movies)
 
+
+# All Functions
+
 # Delete Movie Function
 @app.route('/delete/<int:id>')
 @login_required
@@ -130,7 +123,6 @@ def delete(id):
     db.session.delete(movie)
     db.session.commit()
     return render_template('movie_database.html')
-
 
 # Update Movie Function
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
@@ -157,3 +149,16 @@ def movie_screen(id):
     movie = Movies.query.filter_by(id=id).first()
     link = movie.link[:-4] + 'raw=1'
     return render_template('movie_screen.html', movie=movie,link=link)
+
+
+# Error Pages
+
+# Error 404
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('404.html'), 404
+
+# Error 500
+@app.errorhandler(500)
+def not_found(error):
+    return render_template('500.html'),404

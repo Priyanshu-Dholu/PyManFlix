@@ -9,21 +9,6 @@
     animation: nav-load var(--nav-load-time) ease-in;
 }
 
-.movie_card {
-    animation: article-load 300ms ease-in var(--article-load-delay);
-    animation-fill-mode: forwards;
-    transform: translateY(-20px);
-    opacity: 0;
-}
-
-.info_section {
-    animation: article-load 300ms ease-in calc(var(--article-load-delay) + 200ms);
-    animation-fill-mode: forwards;
-    transform: translateY(-20px);
-    opacity: 0;
-}
-
-
 @keyframes nav-load {
     0% {
         transform: translateY(-100%);
