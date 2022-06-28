@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,10 +10,8 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- Video JS CSS -->
     <link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" />
-    <!-- Flixkty CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2.3.0/dist/flickity.css">
     <!-- Movie Style -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='movie_style.css') }}"  />
+    <link rel="stylesheet" href="{{ url_for('static', filename='movie_style.css') }}" />
     <!-- Base Style -->
     <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
     <!-- Facicon -->
@@ -22,7 +21,7 @@
     {% endblock styles %}
     <title>{% block title %}
 
-    {% endblock title %} - ManFlix</title>
+        {% endblock title %} - ManFlix</title>
 </head>
 
 <body>
@@ -36,21 +35,72 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    {% if current_user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" id="video-icon" href="{{ url_for('home') }}"><span class="iconify"
-                                data-icon="akar-icons:video" data-width="30" data-height="30"></span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="admin-icon" aria-current="page" href="{{ url_for('add_movies') }}"><span
-                                class="iconify" data-icon="carbon:add-alt" data-width="30" data-height="30"></span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="db-icon" aria-current="page"
-                            href="{{ url_for('movie_database') }}"><span class="iconify" data-icon="codicon:database"
+                    {% if current_user.is_authenticated %}                        
+                            {% if current == 'home' %}
+                            <li class="nav-item">
+                                <a class="nav-link active" id="video-icon" href="{{ url_for('home') }}"><span
+                                class="iconify" data-icon="akar-icons:video" data-width="30"
+                                data-height="30"></span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="admin-icon" aria-current="page"
+                                href="{{ url_for('add_movies') }}"><span class="iconify" data-icon="carbon:add-alt"
+                                    data-width="30" data-height="30"></span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="db-icon" aria-current="page"
+                                href="{{ url_for('movie_database') }}"><span class="iconify" data-icon="codicon:database"
+                                    data-width="30" data-height="30"></span></a>
+                            </li>
+                            {% elif current == 'add_movies' %}
+                            <li class="nav-item">
+                                <a class="nav-link" id="video-icon" href="{{ url_for('home') }}"><span
+                                class="iconify" data-icon="akar-icons:video" data-width="30"
+                                data-height="30"></span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="admin-icon" aria-current="page"
+                                href="{{ url_for('add_movies') }}"><span class="iconify" data-icon="carbon:add-alt"
+                                    data-width="30" data-height="30"></span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="db-icon" aria-current="page"
+                                href="{{ url_for('movie_database') }}"><span class="iconify" data-icon="codicon:database"
+                                    data-width="30" data-height="30"></span></a>
+                            </li>
+                            {% elif current == 'movie_database' %}
+                            <li class="nav-item">
+                                <a class="nav-link" id="video-icon" href="{{ url_for('home') }}"><span
+                                class="iconify" data-icon="akar-icons:video" data-width="30"
+                                data-height="30"></span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="admin-icon" aria-current="page"
+                                href="{{ url_for('add_movies') }}"><span class="iconify" data-icon="carbon:add-alt"
                                 data-width="30" data-height="30"></span></a>
-                    </li>
-
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="db-icon" aria-current="page"
+                                href="{{ url_for('movie_database') }}"><span class="iconify" data-icon="codicon:database"
+                                data-width="30" data-height="30"></span></a>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" id="video-icon" href="{{ url_for('home') }}"><span
+                                class="iconify" data-icon="akar-icons:video" data-width="30"
+                                data-height="30"></span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="admin-icon" aria-current="page"
+                                href="{{ url_for('add_movies') }}"><span class="iconify" data-icon="carbon:add-alt"
+                                data-width="30" data-height="30"></span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="db-icon" aria-current="page"
+                                href="{{ url_for('movie_database') }}"><span class="iconify" data-icon="codicon:database"
+                                data-width="30" data-height="30"></span></a>
+                            </li>
+                            {% endif %}                                            
                     {% endif %}
 
                     <!-- <li class="nav-item dropdown">
@@ -111,8 +161,6 @@
         crossorigin="anonymous"></script>
     <!-- Iconify -->
     <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-    <!-- Flickty JS -->
-    <script src="https://unpkg.com/flickity@2.3.0/dist/flickity.pkgd.min.js"></script>
 </body>
 
 </html>
