@@ -13,7 +13,7 @@ from manflix.models import Movies, UserData
 def index():
     try:
         all_movies = Movies.query.order_by(Movies.id.desc()).limit(3)
-        print(all_movies)
+        print(all_movies)        
         return render_template('index.html',all_movies=all_movies)
     except:
         return render_template('index.html')
@@ -76,9 +76,9 @@ def verify():
                 db.session.commit()
                 flash(f'You Can Log In Now!', 'success') 
                 return redirect(url_for('login'))
-            else:
+            elif user_otp != check_user.otp:
                 flash(f'Wrong OTP Account Deleted From DB!', 'danger')
-                db.session.delete(check_user) 
+                UserData.query.filter(UserData.is_verified == False).delete()
                 db.session.commit()
                 return redirect(url_for('index'))
         return render_template('verify.html',form2=form2)
@@ -205,7 +205,3 @@ def not_found(error):
 @app.errorhandler(500)
 def not_found(error):
     return render_template('500.html'),404
-
-@app.route('/not_verified')
-def not_verified():
-    return render_template('not_verified.html')
