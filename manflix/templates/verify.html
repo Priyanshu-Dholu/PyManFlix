@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %} 👥 {% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="signup-form">
+                <form action="" method="post" class="mt-2 rounded p-4 bg-light shadow">
+                    {{ form2.hidden_tag() }}
+                    <p class="mb-5 text-secondary">Enter OTP That Is Sent To Your Mail</p>
+                    <div class="row">
+                        <div class="mb-3 col-md-12">                           
+                            {{ form2.otp.label(class="text-Dark") }}
+                            {{ form2.otp(class="form-control") }}
+                        </div>                                              
+                        <div class="d-grid">
+                            {{ form2.submit(class="btn btn-outline-success") }}
+                         </div>
+                    </div>
+                </form>
+                <p class="text-center text-muted mt-3 text-secondary">If you do not have account, Please <a href="{{ url_for('register') }}">Register Now</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

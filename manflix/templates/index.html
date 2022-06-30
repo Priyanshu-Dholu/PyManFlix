@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} 🎫 {% endblock %}
 {% block body %}
+{% if all_movies %}
 <div class="no-padding col-lg-12  col-md-12 col-sm-12 col-xs-12">
     <div id="carouselExampleControls" class="carousel slide carousel-fade" data-ride="carousel">
         <div class="carousel-indicators">
@@ -28,10 +29,10 @@
                 <div class="carousel-caption d-none d-md-block">
                     <h5 class="fw-bold text-light">{{ m.title }}</h5>
                     {% if m.movie_release_year >= 2020 %}
-                        <p>{{ m.movie_release_year }}<span class="badge bg-danger">New</span></p>
+                    <p>{{ m.movie_release_year }}<span class="badge bg-danger">New</span></p>
                     {% else %}
-                        <p>{{ m.movie_release_year }}</p>
-                    {% endif %}                                        
+                    <p>{{ m.movie_release_year }}</p>
+                    {% endif %}
                     <a href="/movie_screen/{{ m.id }}" class="btn btn-primary" role="button">Watch</a>
                 </div>
             </div>
@@ -49,4 +50,6 @@
         </button>
     </div>
 </div>
+{% endif %}
+
 {% endblock %}

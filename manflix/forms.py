@@ -38,6 +38,11 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
+# Verify User Form
+class VerifyUserForm(FlaskForm):
+    otp = StringField('OTP', validators=[DataRequired()])
+    submit = SubmitField('Verify')
+
 # Form Class For Searching Movie
 class SearchMovieForm(FlaskForm):
     movie_name = StringField('Search For Movie Movie ID', validators=[DataRequired()])

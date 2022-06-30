@@ -1,18 +1,22 @@
 from flask import Flask, render_template, request, redirect, flash, url_for
 from flask_login import login_user, current_user, logout_user, login_required
+import random,smtplib
 from manflix import app, db, bcrypt
 from manflix.functions import get_movie_detail, get_movie_id
-from manflix.forms import AddMovieForm, SearchMovieForm, RegistrationForm, LoginForm
+from manflix.forms import AddMovieForm, SearchMovieForm, RegistrationForm, LoginForm, VerifyUserForm
 from manflix.models import Movies, UserData
-
 
 #------------------- All Pages ---------------------
 
 # Index Page
 @app.route('/')
 def index():
-    all_movies = Movies.query.order_by(Movies.id.desc()).limit(3)
-    return render_template('index.html',all_movies=all_movies)
+    try:
+        all_movies = Movies.query.order_by(Movies.id.desc()).limit(3)
+        print(all_movies)
+        return render_template('index.html',all_movies=all_movies)
+    except:
+        return render_template('index.html')
 
 # Login
 @app.route('/login',methods = ['GET','POST'])
@@ -22,7 +26,7 @@ def login():
     form = LoginForm()   
     if form.is_submitted():        
         user = UserData.query.filter_by(username=form.username.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):            
+        if user and bcrypt.check_password_hash(user.password, form.password.data) and user.is_verified == True:            
             login_user(user,remember=form.remember.data)
             next_page = request.args.get('next')
             flash(f'You Are Logged In!', 'success')
@@ -30,6 +34,56 @@ def login():
         else:
             flash(f'Please Check For Username and Password', 'danger')        
     return render_template('login.html',title='Login',form=form)
+
+# User Registration Form
+@app.route('/register',methods = ['GET','POST'])
+def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+    form = RegistrationForm()    
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')       
+        otp = ''.join([str(random.randint(0, 9)) for i in range(4)])
+        user = UserData(username=form.username.data,email=form.email.data,password=hashed_password,otp=otp)      
+        global cemail
+        cemail = form.email.data
+        # Sending OTP To Mail 
+        smtp_server = smtplib.SMTP('smtp.gmail.com', 587)
+        smtp_server.ehlo()
+        smtp_server.starttls()
+        smtp_server.login('johnharrison12587@gmail.com', 'fhwrnydeedhztaso')
+        message = 'Subject: {}\n\n{}'.format('Verification Code', 'Your Verification Code is: ' + str(otp)) 
+        smtp_server.sendmail('johnharrison12587@gmail.com', form.email.data, message)
+        smtp_server.quit()  
+        
+        # Commiting Changes
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Please Verify Your Account!', 'info')                
+        return redirect(url_for('verify'))
+    return render_template('register.html',form=form)
+
+# User Verify Page
+@app.route('/verify',methods=['GET','POST'])
+def verify():
+    form2 = VerifyUserForm()
+    try:        
+        check_user = UserData.query.filter_by(email=cemail).first()    
+        user_otp = form2.otp.data              
+        if form2.validate_on_submit():                        
+            if user_otp == check_user.otp:                      
+                check_user.is_verified = True
+                db.session.commit()
+                flash(f'You Can Log In Now!', 'success') 
+                return redirect(url_for('login'))
+            else:
+                flash(f'Wrong OTP Account Deleted From DB!', 'danger')
+                db.session.delete(check_user) 
+                db.session.commit()
+                return redirect(url_for('index'))
+        return render_template('verify.html',form2=form2)
+    except:
+        return redirect(url_for('register'))
 
 # Log Out
 @app.route('/logout')
@@ -101,21 +155,6 @@ def search_movies():
             movie_from_db = Movies.query.all()
             return render_template('search_movies.html', mov=mov,search=tag)
 
-# User Registration Form
-@app.route('/register',methods = ['GET','POST'])
-def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('home'))
-    form = RegistrationForm()    
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')       
-        user = UserData(username=form.username.data,email=form.email.data,password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
-        flash(f'Your Account Has Been Created! You Can Now Log In', 'success')
-        return redirect(url_for('login'))
-    return render_template('register.html',title='Register',form=form)
-
 # Movie Screen
 @app.route('/movie_screen/<int:id>')
 @login_required
@@ -166,3 +205,7 @@ def not_found(error):
 @app.errorhandler(500)
 def not_found(error):
     return render_template('500.html'),404
+
+@app.route('/not_verified')
+def not_verified():
+    return render_template('not_verified.html')
