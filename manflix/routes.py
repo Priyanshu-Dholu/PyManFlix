@@ -78,6 +78,7 @@ def verify():
                 return redirect(url_for('login'))
             elif user_otp != check_user.otp:
                 flash(f'Wrong OTP Account Deleted From DB!', 'danger')
+                
                 db.session.delete(check_user)                
                 db.session.commit()
                 return render_template('index.html')
