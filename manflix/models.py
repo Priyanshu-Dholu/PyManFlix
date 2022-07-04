@@ -31,6 +31,7 @@ class UserData(db.Model,UserMixin):
     user_image = db.Column(db.String(20),nullable=False,default='default.jpg')
     otp = db.Column(db.String(4))
     is_verified = db.Column(db.Boolean,default=False)
+    is_admin = db.Column(db.Boolean,default=False)
     
     def __refr__(self):
-        return f"User('{self.username}','{self.email}','{self.is_verified}','{self.otp}','{self.user_image}')"
+        return f"User('{self.username}','{self.is_admin}','{self.email}','{self.is_verified}','{self.otp}','{self.user_image}')"

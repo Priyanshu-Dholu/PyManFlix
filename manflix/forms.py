@@ -41,7 +41,13 @@ class LoginForm(FlaskForm):
 # Verify User Form
 class VerifyUserForm(FlaskForm):
     otp = StringField('OTP', validators=[DataRequired()])
-    submit = SubmitField('Verify')
+    submit = SubmitField('Verify')    
+
+# Become Admin Form
+class AdminForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(),Length(min=2,max=20)])
+    email = StringField('Email',validators=[DataRequired(),Email()])
+    submit = SubmitField('Become Admin')
 
 # Form Class For Searching Movie
 class SearchMovieForm(FlaskForm):

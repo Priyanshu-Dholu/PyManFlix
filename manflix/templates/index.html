@@ -29,7 +29,7 @@
                 <div class="carousel-caption d-none d-md-block">
                     <h5 class="fw-bold text-light">{{ m.title }}</h5>
                     {% if m.movie_release_year >= 2020 %}
-                    <p>{{ m.movie_release_year }}<span class="badge bg-danger">New</span></p>
+                    <h6>{{ m.movie_release_year }} <span class="badge bg-danger">New</span></h6>
                     {% else %}
                     <p>{{ m.movie_release_year }}</p>
                     {% endif %}

@@ -35,61 +35,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    {% if current_user.is_authenticated %}                        
-                            {% if current == 'home' %}
-                            <li class="nav-item">
-                                <a class="nav-link active" id="video-icon" href="{{ url_for('home') }}"><span
-                                class="iconify" data-icon="akar-icons:video" data-width="30"
-                                data-height="30"></span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="admin-icon" aria-current="page"
-                                href="{{ url_for('add_movies') }}"><span class="iconify" data-icon="carbon:add-alt"
-                                    data-width="30" data-height="30"></span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="db-icon" aria-current="page"
-                                href="{{ url_for('movie_database') }}"><span class="iconify" data-icon="codicon:database"
-                                    data-width="30" data-height="30"></span></a>
-                            </li>
-                            {% elif current == 'add_movies' %}
+                    {% if current_user.is_authenticated %}                                                                                
                             <li class="nav-item">
                                 <a class="nav-link" id="video-icon" href="{{ url_for('home') }}"><span
                                 class="iconify" data-icon="akar-icons:video" data-width="30"
                                 data-height="30"></span></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" id="admin-icon" aria-current="page"
-                                href="{{ url_for('add_movies') }}"><span class="iconify" data-icon="carbon:add-alt"
-                                    data-width="30" data-height="30"></span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="db-icon" aria-current="page"
-                                href="{{ url_for('movie_database') }}"><span class="iconify" data-icon="codicon:database"
-                                    data-width="30" data-height="30"></span></a>
-                            </li>
-                            {% elif current == 'movie_database' %}
-                            <li class="nav-item">
-                                <a class="nav-link" id="video-icon" href="{{ url_for('home') }}"><span
-                                class="iconify" data-icon="akar-icons:video" data-width="30"
-                                data-height="30"></span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="admin-icon" aria-current="page"
-                                href="{{ url_for('add_movies') }}"><span class="iconify" data-icon="carbon:add-alt"
-                                data-width="30" data-height="30"></span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" id="db-icon" aria-current="page"
-                                href="{{ url_for('movie_database') }}"><span class="iconify" data-icon="codicon:database"
-                                data-width="30" data-height="30"></span></a>
-                            </li>
-                            {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" id="video-icon" href="{{ url_for('home') }}"><span
-                                class="iconify" data-icon="akar-icons:video" data-width="30"
-                                data-height="30"></span></a>
-                            </li>
+                            {% if user.is_admin == True %}
                             <li class="nav-item">
                                 <a class="nav-link" id="admin-icon" aria-current="page"
                                 href="{{ url_for('add_movies') }}"><span class="iconify" data-icon="carbon:add-alt"
@@ -99,10 +51,9 @@
                                 <a class="nav-link" id="db-icon" aria-current="page"
                                 href="{{ url_for('movie_database') }}"><span class="iconify" data-icon="codicon:database"
                                 data-width="30" data-height="30"></span></a>
-                            </li>
-                            {% endif %}                                            
+                            </li>               
+                            {% endif %}                                                       
                     {% endif %}
-
                     <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">

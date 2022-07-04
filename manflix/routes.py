@@ -1,13 +1,12 @@
-from flask import Flask, render_template, request, redirect, flash, url_for
+from flask import Flask, render_template, request, redirect, flash, url_for, session
 from flask_login import login_user, current_user, logout_user, login_required
 import random,smtplib
 from manflix import app, db, bcrypt
 from manflix.functions import get_movie_detail, get_movie_id
-from manflix.forms import AddMovieForm, SearchMovieForm, RegistrationForm, LoginForm, VerifyUserForm
+from manflix.forms import AddMovieForm, SearchMovieForm, RegistrationForm, LoginForm, VerifyUserForm, AdminForm
 from manflix.models import Movies, UserData
 
 #------------------- All Pages ---------------------
-
 # Index Page
 @app.route('/')
 def index():
@@ -17,6 +16,17 @@ def index():
         return render_template('index.html',all_movies=all_movies)
     except:
         return render_template('index.html')
+
+# Adding Variable To All Template
+@app.context_processor
+def inject_user():    
+    user = False
+    if 'email' in session:
+        email = session['email']
+        user = UserData.query.filter_by(email=email).first()
+        return dict(user=user)
+    else:
+        return dict(user=user)
 
 # Login
 @app.route('/login',methods = ['GET','POST'])
@@ -28,9 +38,10 @@ def login():
         user = UserData.query.filter_by(username=form.username.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data) and user.is_verified == True:            
             login_user(user,remember=form.remember.data)
+            session["email"] = user.email
             next_page = request.args.get('next')
             flash(f'You Are Logged In!', 'success')
-            return redirect(next_page) if next_page else redirect(url_for('home'))
+            return redirect(next_page) if next_page else redirect(url_for('home'))        
         else:
             flash(f'Please Check For Username and Password', 'danger')        
     return render_template('login.html',title='Login',form=form)
@@ -44,7 +55,7 @@ def register():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')       
         otp = ''.join([str(random.randint(0, 9)) for i in range(4)])
-        user = UserData(username=form.username.data,email=form.email.data,password=hashed_password,otp=otp)      
+        user = UserData(username=form.username.data,email=form.email.data,password=hashed_password,otp=otp)
         global cemail
         cemail = form.email.data
         # Sending OTP To Mail 
@@ -86,6 +97,22 @@ def verify():
     except:
         return redirect(url_for('register'))
 
+# Become Admin Page
+@app.route('/become_admin',methods=['GET','POST'])
+@login_required
+def become_admin():
+    form = AdminForm()
+    print('IN Form')
+    if form.is_submitted():
+        print('User is Admin Now')
+        check_user = UserData.query.filter_by(email=form.email.data).first()    
+        check_user.is_admin = True
+        db.session.commit()
+        flash('You Are Admin Now','success')
+        return redirect(url_for('home'))
+    
+    return render_template('become_admin.html',form=form)
+
 # Log Out
 @app.route('/logout')
 def logout():
@@ -98,8 +125,8 @@ def logout():
 def home():
     page = request.args.get('page',1,type = int)
     all_movies = Movies.query.order_by(Movies.id.desc()).paginate(per_page = 3)
-    curr_page = 'home'
-    return render_template('home.html', all_movies=all_movies,current=curr_page)
+    
+    return render_template('home.html', all_movies=all_movies)
 
 # Add Movie Page
 @app.route('/add_movies', methods=['GET', 'POST'])
