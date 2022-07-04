@@ -56,8 +56,8 @@ def register():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')       
         otp = ''.join([str(random.randint(0, 9)) for i in range(4)])
         user = UserData(username=form.username.data,email=form.email.data,password=hashed_password,otp=otp)
-        global cemail
-        cemail = form.email.data
+        session["email"] = form.email.data
+
         # Sending OTP To Mail 
         smtp_server = smtplib.SMTP('smtp.gmail.com', 587)
         smtp_server.ehlo()
@@ -77,34 +77,31 @@ def register():
 # User Verify Page
 @app.route('/verify',methods=['GET','POST'])
 def verify():
-    form2 = VerifyUserForm()
-    try:        
-        check_user = UserData.query.filter_by(email=cemail).first()    
-        user_otp = form2.otp.data              
-        if form2.validate_on_submit():                        
-            if user_otp == check_user.otp:                      
-                check_user.is_verified = True
-                db.session.commit()
-                flash(f'You Can Log In Now!', 'success') 
-                return redirect(url_for('login'))
-            elif user_otp != check_user.otp:
-                flash(f'Wrong OTP Account Deleted From DB!', 'danger')
-                
-                db.session.delete(check_user)                
-                db.session.commit()
-                return render_template('index.html')
-        return render_template('verify.html',form2=form2)
-    except:
-        return redirect(url_for('register'))
+    form2 = VerifyUserForm() 
+    if "email" in session:
+            email = session["email"]
+            check_user = UserData.query.filter_by(email=email).first()    
+            user_otp = form2.otp.data              
+            if form2.validate_on_submit():                        
+                if user_otp == check_user.otp:                      
+                    check_user.is_verified = True
+                    db.session.commit()
+                    flash(f'You Can Log In Now!', 'success') 
+                    return redirect(url_for('login'))
+                elif user_otp != check_user.otp:
+                    flash(f'Wrong OTP Account Deleted From DB!', 'danger')                
+                    db.session.delete(check_user)                
+                    db.session.commit()
+                    return render_template('index.html')
+            return render_template('verify.html',form2=form2)
+    return redirect(url_for('register'))
 
 # Become Admin Page
 @app.route('/become_admin',methods=['GET','POST'])
 @login_required
 def become_admin():
-    form = AdminForm()
-    print('IN Form')
+    form = AdminForm()    
     if form.is_submitted():
-        print('User is Admin Now')
         check_user = UserData.query.filter_by(email=form.email.data).first()    
         check_user.is_admin = True
         db.session.commit()
@@ -171,6 +168,7 @@ def movie_database():
 
 # Searh Movie Page In Database
 @app.route('/search_movies', methods=['POST'])
+@login_required
 def search_movies():
     if request.method == 'POST':              
         tag = request.form["searched"]
