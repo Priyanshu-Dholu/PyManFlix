@@ -44,9 +44,16 @@ def register():
         return redirect(url_for('home'))
     form = RegistrationForm()    
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')       
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8') 
+        user_name = form.username.data  
+        e_mail = form.email.data   
         otp = ''.join([str(random.randint(0, 9)) for i in range(4)])
-        user = UserData(username=form.username.data,email=form.email.data,password=hashed_password,otp=otp)
+        user_avatar = form.user_avatar.data + '.jpg'
+        print(user_avatar)
+        print(type(user_avatar))        
+        user = UserData(username=user_name,email=e_mail,password=hashed_password,otp=otp,user_image=user_avatar)
+
+        # Adding Current Users Email To Session
         session["email"] = form.email.data
 
         # Sending OTP To Mail 
@@ -54,7 +61,7 @@ def register():
         smtp_server.ehlo()
         smtp_server.starttls()
         smtp_server.login('johnharrison12587@gmail.com', 'fhwrnydeedhztaso')
-        message = 'Subject: {}\n\n{}'.format('Verification Code', 'Your Verification Code is: ' + str(otp)) 
+        message = 'Subject: {}\n\n{}'.format('Verification Code For ' + str(user_name), 'Your Verification Code is: ' + str(otp)) 
         smtp_server.sendmail('johnharrison12587@gmail.com', form.email.data, message)
         smtp_server.quit()  
         
@@ -70,7 +77,7 @@ def register():
 def verify():
     form2 = VerifyUserForm() 
     if "email" in session:
-            email = current_user.email
+            email = session["email"]
             check_user = UserData.query.filter_by(email=email).first()    
             user_otp = form2.otp.data              
             if form2.validate_on_submit():                        
@@ -101,28 +108,11 @@ def become_admin():
     
     return render_template('become_admin.html',form=form)
 
-# Settings Page
-def save_picture(form_picture):    
-    random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(secure_filename(form_picture.filename))
-    picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
-
-    output_size = (125, 125)
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
-    i.save(picture_path)
-
-    return picture_fn
-
 
 @app.route('/account',methods=['GET','POST'])
 def account():
     form = UpdateAccountForm()
-    if form.validate_on_submit():
-        # if form.picture.data:
-        #     picture_file = save_picture(form.picture.data)
-        #     current_user.user_image = form.picture.data
+    if form.validate_on_submit():        
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
@@ -131,7 +121,7 @@ def account():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-    image_file = url_for('static',filename='profile_pics/' + current_user.user_image)
+    image_file = url_for('static',filename='Profile_Icon/' + current_user.user_image)
     return render_template('account.html',title='Account',image_file=image_file,form=form)
 
 # Log Out
