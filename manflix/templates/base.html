@@ -19,9 +19,11 @@
     {% block styles %}
 
     {% endblock styles %}
-    <title>{% block title %}
+    <title>
+        {% block title %}
 
-        {% endblock title %} - ManFlix</title>
+        {% endblock title %} - ManFlix
+    </title>
 </head>
 
 <body>
@@ -35,24 +37,22 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    {% if current_user.is_authenticated %}                                                                                
-                            <li class="nav-item">
-                                <a class="nav-link" id="video-icon" href="{{ url_for('home') }}"><span
-                                class="iconify" data-icon="akar-icons:video" data-width="30"
-                                data-height="30"></span></a>
-                            </li>
-                            {% if user.is_admin == True %}
-                            <li class="nav-item">
-                                <a class="nav-link" id="admin-icon" aria-current="page"
-                                href="{{ url_for('add_movies') }}"><span class="iconify" data-icon="carbon:add-alt"
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" id="video-icon" href="{{ url_for('home') }}"><span class="iconify"
+                                data-icon="akar-icons:video" data-width="30" data-height="30"></span></a>
+                    </li>
+                    {% if current_user.is_admin == True %}
+                    <li class="nav-item">
+                        <a class="nav-link" id="admin-icon" aria-current="page" href="{{ url_for('add_movies') }}"><span
+                                class="iconify" data-icon="carbon:add-alt" data-width="30" data-height="30"></span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="db-icon" aria-current="page"
+                            href="{{ url_for('movie_database') }}"><span class="iconify" data-icon="codicon:database"
                                 data-width="30" data-height="30"></span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="db-icon" aria-current="page"
-                                href="{{ url_for('movie_database') }}"><span class="iconify" data-icon="codicon:database"
-                                data-width="30" data-height="30"></span></a>
-                            </li>               
-                            {% endif %}                                                       
+                    </li>
+                    {% endif %}
                     {% endif %}
                     <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -79,9 +79,17 @@
                         aria-label="Search">
                     <button class="btn-sm btn-outline-success" type="submit"><span class="iconify"
                             data-icon="bi:search"></span></button>
-                </form>
-                <a class="nav-link danger" id="exit-icon" aria-current="page" href="{{ url_for('logout') }}"><span
-                        class="iconify" data-icon="bytesize:sign-out" data-width="30" data-height="30"></span></a>
+                </form>                
+                        <div class="flex-shrink-0 dropdown mx-1">
+                            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="true">
+                              <img src="../static/profile_pics/{{ current_user.user_image }}" alt="mdo" width="32" height="32" class="rounded-circle">
+                            </a>
+                            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-1px, 38px, 0px);" data-popper-placement="bottom-end">
+                              <li><a class="dropdown-item" href="{{ url_for('account') }}">Settings</a></li>
+                              <li><hr class="dropdown-divider"></li>
+                              <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a></li>
+                            </ul>
+                          </div>
                 {% else %}
                 <div class="d-flex">
                     <a class="btn btn-outline-light me-1" role="button" href="{{ url_for('login') }}">Login</a>
@@ -92,15 +100,17 @@
             </div>
         </div>
     </nav>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category,message in messages %}
-    <div class="alert alert-{{ category }} m-2">
-        {{ message }}
+    <div class="container-fluid">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category,message in messages %}
+        <div class="alert alert-{{ category }} m-2">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
     </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
     {% block body %}
 
     {% endblock body %}

@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request, redirect, flash, url_for, session
 from flask_login import login_user, current_user, logout_user, login_required
-import random,smtplib
+from PIL import Image
+from werkzeug.utils import secure_filename
+import random,smtplib,secrets,os
 from manflix import app, db, bcrypt
 from manflix.functions import get_movie_detail, get_movie_id
-from manflix.forms import AddMovieForm, SearchMovieForm, RegistrationForm, LoginForm, VerifyUserForm, AdminForm
+from manflix.forms import AddMovieForm, SearchMovieForm, RegistrationForm, LoginForm, VerifyUserForm, AdminForm, UpdateAccountForm
 from manflix.models import Movies, UserData
 
 #------------------- All Pages ---------------------
@@ -16,17 +18,6 @@ def index():
         return render_template('index.html',all_movies=all_movies)
     except:
         return render_template('index.html')
-
-# Adding Variable To All Template
-@app.context_processor
-def inject_user():    
-    user = False
-    if 'email' in session:
-        email = session['email']
-        user = UserData.query.filter_by(email=email).first()
-        return dict(user=user)
-    else:
-        return dict(user=user)
 
 # Login
 @app.route('/login',methods = ['GET','POST'])
@@ -79,7 +70,7 @@ def register():
 def verify():
     form2 = VerifyUserForm() 
     if "email" in session:
-            email = session["email"]
+            email = current_user.email
             check_user = UserData.query.filter_by(email=email).first()    
             user_otp = form2.otp.data              
             if form2.validate_on_submit():                        
@@ -109,6 +100,39 @@ def become_admin():
         return redirect(url_for('home'))
     
     return render_template('become_admin.html',form=form)
+
+# Settings Page
+def save_picture(form_picture):    
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(secure_filename(form_picture.filename))
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
+
+@app.route('/account',methods=['GET','POST'])
+def account():
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        # if form.picture.data:
+        #     picture_file = save_picture(form.picture.data)
+        #     current_user.user_image = form.picture.data
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your Account Has Been Updated','success')
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    image_file = url_for('static',filename='profile_pics/' + current_user.user_image)
+    return render_template('account.html',title='Account',image_file=image_file,form=form)
 
 # Log Out
 @app.route('/logout')
