@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField,FileAllowed
 from flask_login import current_user
-from wtforms import StringField, SubmitField, BooleanField, PasswordField, EmailField, RadioField
+from wtforms import StringField, SubmitField, BooleanField, PasswordField, EmailField, RadioField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from manflix.models import UserData
 
@@ -20,8 +20,25 @@ class RegistrationForm(FlaskForm):
     email = EmailField('Email',validators=[DataRequired(),Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password',
-                                     validators=[DataRequired(), EqualTo('password')])  
-    user_avatar = RadioField('Choose Avatar', validators=[DataRequired()],choices=[('1','Iron Man'),('2','Spider Man'),('3','Hulk'),('4','Groot'),('5','Scarlet Witch'),('6','Vision'),('7','Ant Man'),('8','Wasp'),('9','Natasha'),('10','Black Panther')])                                     
+                                     validators=[DataRequired(), EqualTo('password')])      
+    user_avatar = SelectField('Select Avatar', choices=[('1', 'Iron Man'),
+    ('2', 'Spider-Man'),
+    ('3', 'Hulk'),
+    ('4', 'Groot'),
+    ('5', 'Ant-Man'),
+    ('6', 'Wasp'),
+    ('7', 'Black Panther'),
+    ('8', 'Thanos'),
+    ('9','Baymanx'),
+    ('10', 'Phineas'),
+    ('11', 'Perry'),
+    ('12', 'Ferb'),
+    ('13', 'Chuck'),
+    ('14', 'Bolt'),
+    ('15', 'Hiro'),
+    ('16', 'Ralph'),
+    ('17', 'Mickey'),    
+    ])                             
     submit = SubmitField('Sign Up')
 
     def validate_username(self,username):
@@ -45,8 +62,24 @@ class LoginForm(FlaskForm):
 class UpdateAccountForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(),Length(min=2,max=20)])
     email = EmailField('Email',validators=[DataRequired(),Email()])    
-    picture = FileField('Update Profile Picture',validators=[FileAllowed(['jpg','png'])])
-    user_avatar = RadioField('Choose Avatar', choices=[('1','Iron Man'),('2','Spider Man'),('3','Hulk'),('4','Groot'),('5','Scarlet Witch'),('6','Vision'),('7','Ant Man'),('8','Scarlet Witch'),('9','Natasha'),('10','Black Panther')])
+    user_avatar = SelectField('Select Avatar', choices=[('1', 'Iron Man'),
+    ('2', 'Spider-Man'),
+    ('3', 'Hulk'),
+    ('4', 'Groot'),
+    ('5', 'Ant-Man'),
+    ('6', 'Wasp'),
+    ('7', 'Black Panther'),
+    ('8', 'Thanos'),
+    ('9','Baymanx'),
+    ('10', 'Phineas'),
+    ('11', 'Perry'),
+    ('12', 'Ferb'),
+    ('13', 'Chuck'),
+    ('14', 'Bolt'),
+    ('15', 'Hiro'),
+    ('16', 'Ralph'),
+    ('17', 'Mickey'),    
+    ])                             
     submit = SubmitField('Update')
 
     def validate_username(self,username):

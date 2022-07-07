@@ -1,65 +1,61 @@
 {% extends 'base.html' %}
 {% block title %} 👤 {% endblock %}
 {% block body %}
-
-<div class="container">
+<div class="container mt-2">
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <div class="signup-form">
-        <div class="card mt-1" style="max-width: 540px;">
+        <div class="card mt-2 bg-dark" style="max-width: 540px;">
           <div class="row g-0">
             <div class="col-md-4">
-              <img src="{{ image_file }}" class="img-fluid rounded-start mx-2" alt="...">
+              <img src="{{ image_file }}" class="img-fluid mt-2 mx-2" alt="User Profile Image"
+                style="border: 5px solid rgb(249, 249, 249);border-radius: 100px;">
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title">{{ current_user.username }}</h5>
+                <h5 class="card-title text-danger">{{ current_user.username }}</h5>
                 <p class="card-text text-muted">{{ current_user.email }}</p>
               </div>
             </div>
-            <form action="" method="post" enctype="multipart/form-data" class="mt-2 rounded p-4 bg-light shadow">
+            <form action="" method="post" class="mt-2 rounded p-4 bg-dark shadow">
               {{ form.hidden_tag() }}
-              <h4 class="mn-1 text-secondary">Account Info</h4>
+              <h4 class="m-1 fw-bold text-center text-white text-muted">Update Account Info</h4>
               <fieldset class="form-group">
-                <div class="form-group">
-                  {{ form.username.label(class="form-control-label") }}
-
+                <div class="form-group m-1">
                   {% if form.username.errors %}
-                  {{ form.username(class="form-control form-control is-invalid") }}
+                  {{ form.username(class="is-invalid") }}
+                  <span class="iconify input-icon" data-icon="bx:user-circle"></span>
                   <div class="invalid-feedback">
                     {% for error in form.username.errors %}
                     <span>{{ error }}</span>
                     {% endfor %}
                   </div>
                   {% else %}
-                  {{ form.username(class="form-control form-control") }}
+                  {{ form.username(class="form-style") }}
+                  <span class="iconify input-icon" data-icon="bx:user-circle"></span>
                   {% endif %}
                 </div>
-                <div class="form-group">
-                  {{ form.email.label(class="form-control-label") }}
-
+                <div class="form-group m-1">
                   {% if form.email.errors %}
-                  {{ form.email(class="form-control form-control is-invalid") }}
+                  {{ form.email(class="is-invalid") }}
+                  <span class="iconify input-icon" data-icon="ic:outline-alternate-email"></span>
                   <div class="invalid-feedback">
                     {% for error in form.email.errors %}
                     <span>{{ error }}</span>
                     {% endfor %}
                   </div>
                   {% else %}
-                  {{ form.email(class="form-control form-control") }}
+                  {{ form.email(class="form-style") }}
+                  <span class="iconify input-icon" data-icon="ic:outline-alternate-email"></span>
                   {% endif %}
                 </div>
-                <div class="form-group">
-                  {{ form.picture.label() }}
-                  {{ form.picture(class="form-control-file") }}
-                  {% if form.picture.errors %}
-                  {% for error in form.picture.errors %}
-                  <span class="text-danger">{{ error }}</span></br>
-                  {% endfor %}
-                  {% endif %}
+                <div class="form-group m-1">
+                  {{ form.user_avatar(class="form-style") }}
+                  <span class="iconify input-icon" data-icon="pixelarticons:avatar"></span>
                 </div>
-                <div class="form-group d-grid mt-1">
-                  {{ form.submit(class="btn btn-outline-success") }}
+
+                <div class="form-group d-grid m-1">
+                  {{ form.submit(class="btn-mp btn-outline-success") }}
                 </div>
               </fieldset>
             </form>
@@ -68,7 +64,7 @@
       </div>
     </div>
   </div>
+</div>
 
 
-
-  {% endblock %}
+{% endblock %}

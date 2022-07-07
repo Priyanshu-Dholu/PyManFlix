@@ -1,137 +1,3 @@
-* {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    --nav-load-time: 300ms;
-    --nav-link-load-time: 500ms;
-    --article-load-delay: calc(var(--nav-load-time) + var(--nav-link-load-time))
-}
-
-img {
-    image-rendering: -moz-crisp-edges;
-    image-rendering: -o-crisp-edges;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: auto;
-    -ms-interpolation-mode: nearest-neighbor;
-}
-
-/* Loading Animation */
-.navbar {
-    animation: nav-load var(--nav-load-time) ease-in;
-}
-
-@keyframes nav-load {
-    0% {
-        transform: translateY(-100%);
-    }
-
-    100% {
-        transform: translateY(0);
-    }
-}
-
-@keyframes nav-link-load {
-    0% {
-        transform: scale(0);
-    }
-
-    90% {
-        transform: scale(1.1);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
-@keyframes nav-first-link-load {
-    0% {
-        transform: translateX(-1000%);
-    }
-
-    90% {
-        transform: translateX(50%);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
-}
-
-@keyframes nav-last-link-load {
-    0% {
-        transform: translateX(1000%);
-    }
-
-    90% {
-        transform: translateX(-50%);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
-}
-
-@keyframes article-load {
-    0% {
-        transform: translateY(-20px);
-        opacity: 0;
-    }
-
-    100% {
-        transform: translateY(0px);
-        opacity: 1;
-    }
-}
-
-/* End Animation */
-.navbar a {
-    color: black;
-}
-
-#navbar-icon {
-    transition: all 0.5s ease-in-out;
-}
-
-#navbar-icon:hover {
-    transition: all 0.5s ease-in-out;
-    color: rgb(240, 9, 9);
-}
-
-#video-icon {
-    transition: all 0.5s ease-in-out;
-}
-
-#video-icon:hover {
-    transition: all 0.5s ease-in-out;
-    color: rgb(240, 9, 9);
-}
-
-#admin-icon {
-    transition: all 0.5s ease-in-out;
-}
-
-#admin-icon:hover {
-    transition: all 0.5s ease-in-out;
-    color: rgba(25, 251, 127, 0.968);
-}
-
-#db-icon {
-    transition: all 0.5s ease-in-out;
-}
-
-#db-icon:hover {
-    transition: all 0.5s ease-in-out;
-    color: rgb(220, 250, 49);
-}
-
-#exit-icon {
-    transition: all 0.5s ease-in-out;
-}
-
-#exit-icon:hover {
-    transition: all 0.5s ease-in-out;
-    color: rgb(243, 26, 22);
-}
-
 .btn-mp {
     border-radius: 4px;
     height: 44px;
@@ -161,9 +27,8 @@ img {
     box-shadow: 0 8px 24px 0 rgba(255, 235, 167, .2);
 }
 
-/* Button Styles */
 .btn-mp:active,
-.btn-mp:focus {
+.btn:focus {
     background-color: #102770;
     color: #ffeba7;
     box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
@@ -175,7 +40,6 @@ img {
     box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
 }
 
-/* Form Styles */
 .form-group input:-ms-input-placeholder {
     color: #c4c3ca;
     opacity: 0.7;

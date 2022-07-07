@@ -3,7 +3,7 @@
 {% block body %}
 
 <!-- Form -->
-<div class="container m-2">
+<div class="container">
     <form action="{{ url_for('add_movies') }}" method="post">
         {{ form1.hidden_tag() }}
         <div class="mb-3">
@@ -33,23 +33,25 @@
             <span class="iconify" data-icon="uil:letter-hindi-a"></span>
             <span class="iconify" data-icon="icon-park-outline:english"></span>
         </div>
-        {{ form1.submit(class="btn btn-outline-primary") }}
+        {{ form1.submit(class="btn-mp btn-outline-primary") }}
     </form>
 </div>
 
-<div class="container m-2">
+<hr class="dropdown-divider mt-2">
+
+<div class="container">
     <form action="{{ url_for('add_movies') }}" method="post">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Search For Movie ID</label>
             <input type="text" name="searched" class="form-control" id="exampleFormControlInput1" placeholder="Minions">
         </div>
         <div class="col-auto">
-            <button type="submit" class="btn btn-primary mb-3">Search</button>
+            <button type="submit" class="btn-mp btn-primary mb-3">Search</button>
         </div>
     </form>
 </div>
 
-<div class="container mt-2">
+<div class="container">
     <div class="row">
         <!-- Movie Starts -->
         {% for mov in movie_id %}

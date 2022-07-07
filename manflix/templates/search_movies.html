@@ -6,7 +6,7 @@
 {% block body %}
 <div class="text-center fs-4">
   You Searched For
-  <div class="text-success">
+  <div class="text-info">
     "{{ search }}"
   </div>
 </div>
@@ -62,7 +62,7 @@
           {% endif %}
         </div>
         <div id="{{ m.id }}">
-          <div class="btn-group-sm ms-3 mt-4" id="button-group-main" role="group"
+          <div class="btn-group btn-group-sm ms-3 mt-4" id="button-group-main" role="group"
             aria-label="Basic mixed styles example">
             <a href="/movie_screen/{{ m.id }}" class="btn btn-outline-danger" role="button"><span class="iconify"
                 data-icon="ant-design:play-circle-outlined" data-width="30" data-height="30"></span></a>

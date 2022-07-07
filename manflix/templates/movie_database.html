@@ -2,58 +2,62 @@
 {% block title %} 🎞 {% endblock %}
 {% block body %}
 <!-- Table -->
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">TMDB ID</th>
-                <th scope="col">Title</th>
-                <th scope="col">Year</th>
-                <th scope="col">Link</th>
-                <th scope="col">Language</th>
-                <th scope="col">Quality</th>
-                <th scope="col">Audio</th>                
-            </tr>
-        </thead>
-        <tbody>
-            {% for mov in all_movies %}
-            <tr>
-                <th scope="row">{{loop.index}}</th>
-                <td>{{mov.movie_id_tmd}}</td>
-                <td>{{mov.title}}</td>
-                <td>{{mov.movie_release_year}}</td>
-                <td>{{mov.link[0:5]}}</td>
-                <td>
-                    {% if mov.dual_audio == 1 %}
-                        <span class="iconify" data-icon="uil:letter-hindi-a"></span>
-                        <span class="iconify" data-icon="icon-park-outline:english"></span>
-                    {% else %}
-                        <span class="iconify" data-icon="icon-park-outline:english"></span>
-                    {% endif %}
-                </td>
-                <td>
-                    {% if mov.quality == 1 %}
-                    <span class="iconify" data-icon="bi:badge-hd"></span>
-                    {% else %}
-                    <span class="iconify" data-icon="bi:badge-sd"></span>
-                    {% endif %}
-                </td>
-                <td>
-                    {% if mov.dolby_audio == 1 %}
-                    <span class="iconify" data-icon="simple-icons:dolby"></span>
-                    {% else %}
-                    <span class="iconify" data-icon="cil:audio-description"></span>
-                    {% endif %}
-                </td>
-                <td>
-                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                        <a href="/update/{{mov.id}}" class="btn btn-outline-warning" role="button">Update</a>
-                        <a href="/delete/{{mov.id}}" class="btn btn-outline-danger" role="button">Delete</a>                       
-                    </div>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">TMDB ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Link</th>
+                    <th scope="col">Language</th>
+                    <th scope="col">Quality</th>
+                    <th scope="col">Audio</th>                
+                </tr>
+            </thead>
+            <tbody>
+                {% for mov in all_movies %}
+                <tr>
+                    <th scope="row">{{loop.index}}</th>
+                    <td>{{mov.movie_id_tmd}}</td>
+                    <td>{{mov.title}}</td>
+                    <td>{{mov.movie_release_year}}</td>
+                    <td>{{mov.link[0:5]}}</td>
+                    <td>
+                        {% if mov.dual_audio == 1 %}
+                            <span class="iconify" data-icon="uil:letter-hindi-a"></span>
+                            <span class="iconify" data-icon="icon-park-outline:english"></span>
+                        {% else %}
+                            <span class="iconify" data-icon="icon-park-outline:english"></span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if mov.quality == 1 %}
+                        <span class="iconify" data-icon="bi:badge-hd"></span>
+                        {% else %}
+                        <span class="iconify" data-icon="bi:badge-sd"></span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if mov.dolby_audio == 1 %}
+                        <span class="iconify" data-icon="simple-icons:dolby"></span>
+                        {% else %}
+                        <span class="iconify" data-icon="cil:audio-description"></span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                            <a href="/update/{{mov.id}}" class="btn btn-outline-warning" role="button">Update</a>
+                            <a href="/delete/{{mov.id}}" class="btn btn-outline-danger" role="button">Delete</a>                       
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
 {% endblock %}

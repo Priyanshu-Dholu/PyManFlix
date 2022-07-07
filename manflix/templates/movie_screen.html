@@ -11,11 +11,16 @@
             video</a>
     </p>
 </video>
-
+<a href="{{ url_for('home') }}" class="btn btn-outline-danger d-flex m-1 fw-bold text-center" role="button">
+   Go Back Home
+</a>
 <script>
     const video = document.querySelector('video');
+    const ele = document.getElementsByClassName('navbar');
     video.addEventListener('ended', () => {
         video.setAttribute('src', '{{ movie.link[:-4] + "raw=1" }}')
+        ele[0].style.display = 'none';
+        console.log(ele);
     })
 </script>
 {% endblock %}

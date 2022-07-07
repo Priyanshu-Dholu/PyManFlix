@@ -1,34 +1,35 @@
 {% extends 'base.html' %}
 {% block title %} 👥 {% endblock %}
 {% block body %}
+
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="signup-form">
                 <form action="" method="post" class="mt-2 rounded p-4 bg-light shadow">
                     {{ form.hidden_tag() }}
-                    <h4 class="mb-5 text-secondary">Login</h4>
-                    <div class="row">
-                        <div class="mb-3 col-md-12">                           
-                            {{ form.username.label(class="text-Dark") }}
-                            {{ form.username(class="form-control") }}
+                    <h4 class="m-1 fw-bold text-center">Login</h4>
+                    <fieldset class="form-group">                        
+                        <div class="form-group mt-2">   
+                            {{ form.username(class="form-style") }}            
+                            <span class="iconify input-icon" data-icon="bx:user-circle"></span>
                         </div>
-                        <div class="mb-3 col-md-12">                            
-                            {{ form.password.label(class="text-Dark") }}
-                            {{ form.password(class="form-control") }}
+
+                        <div class="form-group mt-2">   
+                            {{ form.password(class="form-style") }}            
+                            <span class="iconify input-icon" data-icon="bi:key"></span>
                         </div>
-                        <div class="mb-3 col-md-12">
-                            {{ form.remember(class="form-check-input") }}
-                            {{ form.remember.label(class="form-check-label") }}
+
+                        <div class="form-group d-grid mt-2">
+                            {{ form.submit(class="btn-mp btn-outline-success") }}
                         </div>
-                        <div class="d-grid">
-                            {{ form.submit(class="btn btn-outline-success") }}
-                         </div>
-                    </div>
+                    </fieldset>
                 </form>
-                <p class="text-center text-muted mt-3 text-secondary">If you do not have account, Please <a href="{{ url_for('register') }}">Register Now</a></p>
+                <p class="text-center text-muted mt-3 text-secondary">If you do not have account, Please <a
+                        href="{{ url_for('register') }}">Register Now</a></p>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}

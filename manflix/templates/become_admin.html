@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block styles %} 
+<link rel="stylesheet" href="../static/register_login.css">
+{% endblock %}
 {% block title %} 🧥 {% endblock %}
 {% block body %}
 
@@ -8,13 +11,13 @@
             <div class="signup-form">
                 <form action="" method="post" class="mt-2 rounded p-4 bg-light shadow">
                     {{ form.hidden_tag() }}
-                    <h4 class="mb-5 text-secondary">Become Admin</h4>
+                    <h4 class="mb-3 fw-bold text-center">Become Admin!</h4>
                     <fieldset class="form-group">                        
                         <div class="form-group">
-                            {{ form.email.label(class="form-control-label") }}                                                              
-                            {{ form.email(class="form-control form-control") }}                           
+                            {{ form.email(class="form-style") }}
+                            <span class="iconify input-icon" data-icon="ic:outline-alternate-email"></span>                        
                         </div>
-                        <div class="form-group d-grid mt-1">
+                        <div class="form-group d-grid mt-2">
                             {{ form.submit(class="btn btn-outline-success") }}
                         </div>
                     </fieldset>

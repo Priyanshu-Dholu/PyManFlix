@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
+{% block styles %}
+<link rel="stylesheet" href="../static/404_500.css">
+{% endblock %}
 {% block title %} 🗝 {% endblock %}
 {% block body %}
-<h3 class="text-center">You Are Lost | Error 404</h3>
+<h1>Error 404</h1>
+<p class="zoom-area"><b>You Are Lost!</b></p>
+<section class="error-container">
+    <span>4</span>
+    <span><span class="screen-reader-text">0</span></span>
+    <span>4</span>
+</section>
+<div class="link-container">
+    <a href="{{ url_for('index') }}" class="more-link">Go Home</a>
+</div>
 {% endblock %}

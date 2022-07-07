@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, redirect, flash, url_for, session
 from flask_login import login_user, current_user, logout_user, login_required
-from PIL import Image
-from werkzeug.utils import secure_filename
-import random,smtplib,secrets,os
+import random
+import smtplib
+import secrets
+import os
 from manflix import app, db, bcrypt
 from manflix.functions import get_movie_detail, get_movie_id
 from manflix.forms import AddMovieForm, SearchMovieForm, RegistrationForm, LoginForm, VerifyUserForm, AdminForm, UpdateAccountForm
@@ -12,12 +13,11 @@ from manflix.models import Movies, UserData
 # Index Page
 @app.route('/')
 def index():
-    try:
-        all_movies = Movies.query.order_by(Movies.id.desc()).limit(3)
-        print(all_movies)        
-        return render_template('index.html',all_movies=all_movies)
-    except:
+    all_movies = Movies.query.order_by(Movies.id.desc()).limit(3)
+    if all_movies == None:       
         return render_template('index.html')
+    else:
+        return render_template('index.html',all_movies=all_movies)
 
 # Login
 @app.route('/login',methods = ['GET','POST'])
@@ -30,8 +30,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data) and user.is_verified == True:            
             login_user(user,remember=form.remember.data)
             session["email"] = user.email
-            next_page = request.args.get('next')
-            flash(f'You Are Logged In!', 'success')
+            next_page = request.args.get('next')            
             return redirect(next_page) if next_page else redirect(url_for('home'))        
         else:
             flash(f'Please Check For Username and Password', 'danger')        
@@ -48,10 +47,10 @@ def register():
         user_name = form.username.data  
         e_mail = form.email.data   
         otp = ''.join([str(random.randint(0, 9)) for i in range(4)])
-        user_avatar = form.user_avatar.data + '.jpg'
+        user_avatar = form.user_avatar.data + '.webp'
         print(user_avatar)
         print(type(user_avatar))        
-        user = UserData(username=user_name,email=e_mail,password=hashed_password,otp=otp,user_image=user_avatar)
+        user = UserData(username=user_name,email=e_mail,password=hashed_password,otp=otp,avatar=user_avatar)
 
         # Adding Current Users Email To Session
         session["email"] = form.email.data
@@ -108,20 +107,20 @@ def become_admin():
     
     return render_template('become_admin.html',form=form)
 
-
 @app.route('/account',methods=['GET','POST'])
 def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():        
         current_user.username = form.username.data
         current_user.email = form.email.data
+        current_user.avatar = form.user_avatar.data + '.webp'
         db.session.commit()
         flash('Your Account Has Been Updated','success')
         return redirect(url_for('account'))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-    image_file = url_for('static',filename='Profile_Icon/' + current_user.user_image)
+    image_file = url_for('static',filename='Profile_Icon/' + current_user.avatar)
     return render_template('account.html',title='Account',image_file=image_file,form=form)
 
 # Log Out
@@ -187,7 +186,7 @@ def search_movies():
     if request.method == 'POST':              
         tag = request.form["searched"]
         search = "%{}%".format(tag)        
-        mov = Movies.query.filter(Movies.title.like(search)).all()
+        mov = Movies.query.filter(Movies.title.ilike(search)).all()
         
         if mov:
             return render_template('search_movies.html', mov=mov,search=tag)

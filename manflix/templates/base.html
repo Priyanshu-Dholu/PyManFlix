@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,10 +24,9 @@
         {% endblock title %} - ManFlix
     </title>
 </head>
-
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-md">
             <a class="navbar-brand" id="navbar-icon" href="{{ url_for('index') }}">ManFlix</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -54,46 +52,36 @@
                     </li>
                     {% endif %}
                     {% endif %}
-                    <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li> -->
-                    <!-- <li class="nav-item">
-                            <a class="nav-link disabled">Disabled</a>
-                        </li> -->
                 </ul>
 
                 {% if current_user.is_authenticated %}
-                <form class="d-flex" method="post" action="{{ url_for('search_movies') }}">
-                    <input class="form-control me-2" type="search" name="searched" placeholder="Search"
-                        aria-label="Search">
-                    <button class="btn-sm btn-outline-success" type="submit"><span class="iconify"
-                            data-icon="bi:search"></span></button>
-                </form>                
-                        <div class="flex-shrink-0 dropdown mx-1">
-                            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="true">
-                              <img src="../static/Profile_Icon/{{ current_user.user_image }}" alt="mdo" width="32" height="32" class="rounded-circle border border-dark">
-                            </a>
-                            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-1px, 38px, 0px);" data-popper-placement="bottom-end">
-                              <li><a class="dropdown-item" href="{{ url_for('account') }}">Settings</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a></li>
-                            </ul>
-                          </div>
+                <form class="form-group" method="post" action="{{ url_for('search_movies') }}">
+                    <input class="form-style me-2" type="search" name="searched" placeholder="Search"
+                        aria-label="Search" style="
+                        border: 2px solid black;
+                        border-radius: 30px;
+                    ">                    
+                    <span class="iconify input-icon" data-icon="bi:search"></span>
+                </form>
+                <div class="flex-shrink-0 dropdown mx-1">
+                    <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
+                        data-bs-toggle="dropdown" aria-expanded="true">
+                        <img src="../static/Profile_Icon/{{ current_user.avatar }}" alt="Profile Image" width="50" height="50" style="border: 3px solid black;border-radius: 50px;">
+                    </a>
+                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2"
+                        style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-1px, 38px, 0px);"
+                        data-popper-placement="bottom-end">
+                        <li><a class="dropdown-item" href="{{ url_for('account') }}">Settings</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a></li>
+                    </ul>
+                </div>
                 {% else %}
                 <div class="d-flex">
-                    <a class="btn btn-outline-light me-1" role="button" href="{{ url_for('login') }}">Login</a>
-                    <a class="btn btn-outline-light me-1" role="button" href="{{ url_for('register') }}">Register</a>
+                    <a class="btn-mp btn-outline-light me-1" role="button" href="{{ url_for('login') }}">Login</a>
+                    <a class="btn-mp btn-outline-light me-1" role="button" href="{{ url_for('register') }}">Register</a>
                 </div>
                 {% endif %}
 

@@ -1,89 +1,76 @@
 {% extends 'base.html' %}
 {% block title %} 👥 {% endblock %}
-{% block styles %} 
-<link rel="stylesheet" href="../static/register.css">
-{% endblock %}
 {% block body %}
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <div class="signup-form">
+            <div class="signup-form form-group">
                 <form action="" method="post" class="mt-2 rounded p-4 bg-light shadow">
                     {{ form.hidden_tag() }}
-                    <h4 class="mb-5 text-secondary">Create Your Account</h4>
+                    <h4 class="m-1 fw-bold text-center">Sign Up</h4>
                     <fieldset class="form-group">
-                        <div class="form-group">
-                            {{ form.username.label(class="form-control-label") }}
-
+                        <div class="form-group m-1">
                             {% if form.username.errors %}
-                            {{ form.username(class="form-control form-control is-invalid") }}
+                            {{ form.username(class="is-invalid") }}
+                            <span class="iconify input-icon" data-icon="bx:user-circle"></span>
                             <div class="invalid-feedback">
                                 {% for error in form.username.errors %}
                                 <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
                             {% else %}
-                            {{ form.username(class="form-control form-control") }}
+                            {{ form.username(class="form-style") }}
+                            <span class="iconify input-icon" data-icon="bx:user-circle"></span>
                             {% endif %}
                         </div>
-                        <div class="form-group">
-                            {{ form.email.label(class="form-control-label") }}
-
+                        <div class="form-group m-1">
                             {% if form.email.errors %}
-                            {{ form.email(class="form-control form-control is-invalid") }}
+                            {{ form.email(class="is-invalid") }}
+                            <span class="iconify input-icon" data-icon="ic:outline-alternate-email"></span>
                             <div class="invalid-feedback">
                                 {% for error in form.email.errors %}
                                 <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
                             {% else %}
-                            {{ form.email(class="form-control form-control") }}
+                            {{ form.email(class="form-style") }}
+                            <span class="iconify input-icon" data-icon="ic:outline-alternate-email"></span>
                             {% endif %}
                         </div>
-                        <div class="form-group">
-                            {{ form.password.label(class="form-control-label") }}
-
+                        <div class="form-group m-1">
                             {% if form.password.errors %}
-                            {{ form.password(class="form-control form-control is-invalid") }}
+                            {{ form.password(class="is-invalid") }}
+                            <span class="iconify input-icon" data-icon="bi:key"></span>
                             <div class="invalid-feedback">
                                 {% for error in form.password.errors %}
                                 <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
                             {% else %}
-                            {{ form.password(class="form-control form-control") }}
+                            {{ form.password(class="form-style") }}
+                            <span class="iconify input-icon" data-icon="bi:key"></span>
                             {% endif %}
                         </div>
-                        <div class="form-group">
-                            {{ form.confirm_password.label(class="form-control-label") }}
+                        <div class="form-group m-1">
                             {% if form.confirm_password.errors %}
-                            {{ form.confirm_password(class="form-control form-control is-invalid") }}
+                            {{ form.confirm_password(class="is-invalid") }}
+                            <span class="iconify input-icon" data-icon="bi:key"></span>
                             <div class="invalid-feedback">
                                 {% for error in form.confirm_password.errors %}
                                 <span>{{ error }}</span>
                                 {% endfor %}
                             </div>
                             {% else %}
-                            {{ form.confirm_password(class="form-control form-control") }}
+                            {{ form.confirm_password(class="form-style") }}
+                            <span class="iconify input-icon" data-icon="bi:key-fill"></span>
                             {% endif %}
                         </div>
-                        <div class="form-group">   
-                                
-                            <div class="cc-selector">
-                                {% for subfield in form.user_avatar %}
-                                <tr>
-                                    <td>{{ subfield(class_="text_blob") }}</td>                                                           
-                                    <td>{{ subfield.label }}</td>                                    
-                                </tr>
-                            {% endfor %} 
-                                <input id="visa" type="radio" name="credit-card" value="visa" />
-                                <label class="drinkcard-cc visa" for="visa"></label>
-                                <input id="mastercard" type="radio" name="credit-card" value="mastercard" />
-                                <label class="drinkcard-cc mastercard"for="mastercard"></label>
-                            </div>                                               
-                        </div>                                                                                                                 
+                        <div class="form-group m-1">
+                            {{ form.user_avatar(class="form-style") }} 
+                            <span class="iconify input-icon" data-icon="pixelarticons:avatar"></span>                           
+                        </div>                        
                         <div class="form-group d-grid mt-1">
-                            {{ form.submit(class="btn btn-outline-success") }}
+                            {{ form.submit(class="btn-mp btn-outline-success") }}
                         </div>
                     </fieldset>
                 </form>
