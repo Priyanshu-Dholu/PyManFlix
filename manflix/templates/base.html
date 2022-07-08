@@ -7,14 +7,10 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <!-- Video JS CSS -->
-    <link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" />
-    <!-- Movie Style -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='movie_style.css') }}" />
     <!-- Base Style -->
     <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
     <!-- Facicon -->
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="shortcut icon" href="../static/Favicon/favicon.ico">
     {% block styles %}
 
     {% endblock styles %}
@@ -66,12 +62,12 @@
                 <div class="flex-shrink-0 dropdown mx-1">
                     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2"
                         data-bs-toggle="dropdown" aria-expanded="true">
-                        <img src="../static/Profile_Icon/{{ current_user.avatar }}" alt="Profile Image" width="50" height="50" style="border: 3px solid black;border-radius: 50px;">
+                        <img src="../static/Icons/{{ current_user.avatar }}" alt="Profile Image" width="50" height="50" style="border: 3px solid black;border-radius: 50px;">
                     </a>
                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2"
                         style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(-1px, 38px, 0px);"
                         data-popper-placement="bottom-end">
-                        <li><a class="dropdown-item" href="{{ url_for('account') }}">Settings</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('account') }}">Account</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>

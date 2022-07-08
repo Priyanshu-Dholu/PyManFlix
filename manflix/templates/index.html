@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+{% endblock %}
 {% block title %} 🎫 {% endblock %}
 {% block body %}
 {% if all_movies %}
@@ -33,7 +36,7 @@
                     {% else %}
                     <p>{{ m.movie_release_year }}</p>
                     {% endif %}
-                    <a href="/movie_screen/{{ m.id }}" class="btn btn-primary" role="button">Watch</a>
+                    <a href="/movie_screen/{{ m.id }}" style="text-decoration: none;" class="btn-mp btn-primary" role="button">Watch</a>
                 </div>
             </div>
             {% endfor %}

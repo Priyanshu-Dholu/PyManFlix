@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block styles %}
-<link rel="stylesheet" href="../static/404_500.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='404_500.css') }}">
 {% endblock %}
 {% block title %} 🗝 {% endblock %}
 {% block body %}
@@ -14,4 +14,8 @@
 <div class="link-container">
     <a href="{{ url_for('index') }}" class="more-link">Go Home</a>
 </div>
+<script>
+    const ele = document.getElementsByClassName('navbar');
+    ele[0].style.display = 'none';
+</script>
 {% endblock %}

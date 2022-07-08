@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+{% endblock styles %}
 {% block title %} ➕ {% endblock %}
 {% block body %}
 
@@ -43,14 +47,13 @@
     <form action="{{ url_for('add_movies') }}" method="post">
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Search For Movie ID</label>
-            <input type="text" name="searched" class="form-control" id="exampleFormControlInput1" placeholder="Minions">
+            <input type="text" required name="searched" class="form-control" id="exampleFormControlInput1" placeholder="Minions">
         </div>
         <div class="col-auto">
             <button type="submit" class="btn-mp btn-primary mb-3">Search</button>
         </div>
     </form>
 </div>
-
 <div class="container">
     <div class="row">
         <!-- Movie Starts -->

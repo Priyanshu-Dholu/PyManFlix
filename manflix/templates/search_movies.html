@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
-{% endblock styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+{% endblock %}
 {% block title %} 🔍 {% endblock %}
 {% block body %}
 <div class="text-center fs-4">

@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
+{% block styles %} 
+<!-- Video JS CSS -->
+<link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" />
+{% endblock %}
 {% block title %} 🎬 {% endblock %}
 {% block body %}
 <video id="my-video" class="video-js vjs-fluid" autoplay controls preload="auto" width="auto" height="auto"
     poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
-    <source src="../static/intro.webm" type="video/mp4" />
+    <source src="../static/Video/intro.webm" type="video/mp4" />
     <p class="vjs-no-js">
         To view this video please enable JavaScript, and consider upgrading to a
         web browser that
@@ -20,7 +24,6 @@
     video.addEventListener('ended', () => {
         video.setAttribute('src', '{{ movie.link[:-4] + "raw=1" }}')
         ele[0].style.display = 'none';
-        console.log(ele);
     })
 </script>
 {% endblock %}

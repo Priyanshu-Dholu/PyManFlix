@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
-{% block styles %} 
-<link rel="stylesheet" href="../static/register_login.css">
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
 {% endblock %}
 {% block title %} 🧥 {% endblock %}
 {% block body %}

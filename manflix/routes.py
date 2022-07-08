@@ -120,8 +120,8 @@ def account():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-    image_file = url_for('static',filename='Profile_Icon/' + current_user.avatar)
-    return render_template('account.html',title='Account',image_file=image_file,form=form)
+    image_file = url_for('static',filename='Icons/' + current_user.avatar)
+    return render_template('account.html',image_file=image_file,form=form)
 
 # Log Out
 @app.route('/logout')

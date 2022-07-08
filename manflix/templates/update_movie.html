@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+{% endblock %}
 {% block title %} Update {% endblock %}
 {% block body %}
 <!-- Form -->

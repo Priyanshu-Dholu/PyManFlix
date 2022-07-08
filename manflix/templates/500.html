@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block styles %}
-<link rel="stylesheet" href="../static/404_500.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='404_500.css') }}">
 {% endblock %}
 {% block title %} ✖ {% endblock %}
 {% block body %}
@@ -11,4 +11,8 @@
     <span><span class="screen-reader-text">0</span></span>
     <span>5</span>
 </section>
+<script>
+    const ele = document.getElementsByClassName('navbar');
+    ele[0].style.display = 'none';
+</script>
 {% endblock %}
