@@ -10,53 +10,56 @@
 <div class="container">
     <form action="{{ url_for('add_movies') }}" method="post">
         {{ form1.hidden_tag() }}
-        <div class="mb-3">
-            {{ form1.link.label(class="form-label") }}
-            {{ form1.link(class="form-control") }}
-
-        </div>
-        <div class="mb-3">
-            {{ form1.movie_id_tmd.label(class="form-label") }}
-            {{ form1.movie_id_tmd(class="form-control") }}
-
-        </div>
-        <div class="form-check">
-            {{ form1.quality.label(class="form-check-label") }}
-            {{ form1.quality(class="form-check-input") }}
-            <span class="iconify" data-icon="bi:badge-hd"></span>
-        </div>
-        <div class="form-check">
-            {{ form1.dolby_audio.label(class="form-check-label") }}
-            {{ form1.dolby_audio(class="form-check-input") }}
-            <span class="iconify" data-icon="simple-icons:dolby"></span>
-
-        </div>
-        <div class="form-check">
-            {{ form1.dual_audio.label(class="form-check-label") }}
-            {{ form1.dual_audio(class="form-check-input") }}
-            <span class="iconify" data-icon="uil:letter-hindi-a"></span>
-            <span class="iconify" data-icon="icon-park-outline:english"></span>
-        </div>
-        {{ form1.submit(class="btn-mp btn-outline-primary") }}
+        <fieldset class="form-group mt-2">
+            <!-- Link -->
+            <div class="form-group mt-2">
+                {{ form1.link(class="form-style") }}
+                <span class="iconify input-icon" data-icon="ant-design:link-outlined"></span>
+            </div>
+            <!-- Movie ID -->
+            <div class="form-group mt-2">
+                {{ form1.movie_id_tmd(class="form-style") }}
+                <span class="iconify input-icon" data-icon="emojione-monotone:id-button"></span>
+            </div>
+            <!-- Quality -->
+            <div class="form-group mt-2">
+                {{ form1.quality(class="form-check-input") }}
+                <span class="iconify" data-icon="bi:badge-hd"></span>
+            </div>
+            <!-- Dolby Audio -->
+            <div class="form-group mt-2">
+                {{ form1.dolby_audio(class="form-check-input") }}
+                <span class="iconify" data-icon="simple-icons:dolby"></span>
+            </div>
+            <!-- Dual Audio -->
+            <div class="form-group mt-2">
+                {{ form1.dual_audio(class="form-check-input") }}
+                <span class="iconify" data-icon="uil:letter-hindi-a"></span>
+                <span class="iconify" data-icon="icon-park-outline:english"></span>
+            </div>
+            <!-- Submit -->
+            <div class="form-group mt-2">
+                {{ form1.submit(class="btn-mp btn-outline-success") }}
+            </div>
+        </fieldset>
     </form>
 </div>
-
 <hr class="dropdown-divider mt-2">
-
 <div class="container">
     <form action="{{ url_for('add_movies') }}" method="post">
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Search For Movie ID</label>
-            <input type="text" required name="searched" class="form-control" id="exampleFormControlInput1" placeholder="Minions">
+        <div class="form-group mt-2">
+            <input type="text" required name="searched" class="form-style" id="exampleFormControlInput1"
+                placeholder="Minions">
+            <span class="iconify input-icon" data-icon="ei:search"></span>
         </div>
-        <div class="col-auto">
+        <div class="col-auto mt-2">
             <button type="submit" class="btn-mp btn-primary mb-3">Search</button>
         </div>
     </form>
 </div>
 <div class="container">
     <div class="row">
-        <!-- Movie Starts -->
+        <!-- Movie Card Starts -->
         {% for mov in movie_id %}
         <div class="col-md-4">
             <div class="card mt-2 mb-2" style="width: 15rem;">
@@ -64,11 +67,20 @@
                     alt="{{ mov[1] }}">
                 <div class="card-body">
                     <h5 class="card-title">{{ mov[1] }}</h5>
-                    ID: {{ mov[0] }}
+                    <p id="text-{{ mov[0] }}">
+                        ID: {{ mov[0] }}
+                        <button onclick="myFunction('{{ mov[0] }}')" class="btn-mp"><span class="iconify" data-icon="clarity:copy-line" data-width="20" data-height="20" ></span></button>
+                    </p>                                  
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
+<script defer>
+    function myFunction(copy_text) {
+        // Copy ID
+        navigator.clipboard.writeText(copy_text);
+    }
+</script>
 {% endblock %}

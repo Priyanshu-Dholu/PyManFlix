@@ -9,9 +9,9 @@ from manflix.models import UserData
 class AddMovieForm(FlaskForm):
     link = StringField('Link', validators=[DataRequired()])
     movie_id_tmd = StringField('TMDB Movie ID', validators=[DataRequired()])
-    quality = BooleanField('Quality', default='checked')
-    dolby_audio = BooleanField('Dolby Audio', default='checked')
-    dual_audio = BooleanField('Dual Audio', default='checked')
+    quality = BooleanField('Quality')
+    dolby_audio = BooleanField('Dolby Audio')
+    dual_audio = BooleanField('Dual Audio')
     submit = SubmitField('Add Movie')
 
 # Registration Form For User

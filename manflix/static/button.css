@@ -23,19 +23,19 @@
     text-align: center;
     border: none;
     background-color: #ffeba7;
-    color: #e95f24;
+    color: #102770;
     box-shadow: 0 8px 24px 0 rgba(255, 235, 167, .2);
 }
 
 .btn-mp:active,
 .btn:focus {
-    background-color: #ea6f1e;
+    background-color: #102770;
     color: #ffeba7;
     box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
 }
 
 .btn-mp:hover {
-    background-color: #d22d2d;
+    background-color: #102770;
     color: #ffeba7;
     box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
 }

@@ -1,8 +1,7 @@
 body {
-	background: linear-gradient(-45deg, #62302d, rgb(11, 32, 49), #461262, #362c2b46);
-	background-size: 400% 400%;
-	animation: gradient 15s ease infinite;
-	height: 100vh;
+	background-image: url( '../static/Image/blob-scene-haikei.svg' );
+	background-repeat: no-repeat;
+	background-size: cover !important;
 }
 
 @keyframes gradient {

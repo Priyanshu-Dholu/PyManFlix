@@ -69,7 +69,7 @@
       <div class="blur_back" style="
           background: url('{{ mov.movie_backdrop_link }}');
           background-size: cover;
-          box-shadow: 0px 0px 100px -45px rgba(255, 51, 0, 0.5);
+          box-shadow: 0px 0px 100px -45px rgba(255, 51, 0, 0.5);          
           ">
       </div>
     </div>
@@ -78,7 +78,7 @@
   
   <!-- Pagination -->
   <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center mt-1">
+    <ul class="pagination justify-content-center mt-3">
       {% for page_num in all_movies.iter_pages(left_edge=1, right_edge=1, left_current=1,right_current=2) %}
         {% if page_num %}
           {% if all_movies.page == page_num %}
