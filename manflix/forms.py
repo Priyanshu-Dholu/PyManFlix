@@ -14,6 +14,16 @@ class AddMovieForm(FlaskForm):
     dual_audio = BooleanField('Dual Audio')
     submit = SubmitField('Add Movie')
 
+# Form For Updating Movie
+class UpdateMovieForm(FlaskForm):
+    link = StringField('Link', validators=[DataRequired()])
+    movie_id_tmd = StringField('TMDB Movie ID', validators=[DataRequired()])
+    quality = BooleanField('Quality')
+    dolby_audio = BooleanField('Dolby Audio')
+    dual_audio = BooleanField('Dual Audio')
+    submit = SubmitField('Update Movie')
+
+
 # Registration Form For User
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(),Length(min=2,max=20)])
@@ -70,7 +80,7 @@ class UpdateAccountForm(FlaskForm):
     ('6', 'Wasp'),
     ('7', 'Black Panther'),
     ('8', 'Thanos'),
-    ('9','Baymanx'),
+    ('9','Baymax'),
     ('10', 'Phineas'),
     ('11', 'Perry'),
     ('12', 'Ferb'),

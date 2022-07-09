@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+<link rel="stylesheet" href="../static/Styles/home.css">
+<link rel="stylesheet" href="../static/Styles/Component/button.css">
+<link rel="stylesheet" href="../static/Styles/Component/form.css">
 {% endblock styles %}
 {% block title %} 🏠 {% endblock %}
 {% block body %}
@@ -75,7 +75,6 @@
     </div>
     {% endfor %}
   </div>
-  
   <!-- Pagination -->
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center mt-3">
@@ -94,5 +93,4 @@
   </nav>
   <br>
 </div>
-
 {% endblock %}

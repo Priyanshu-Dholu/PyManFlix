@@ -6,7 +6,7 @@ import secrets
 import os
 from manflix import app, db, bcrypt
 from manflix.functions import get_movie_detail, get_movie_id
-from manflix.forms import AddMovieForm, SearchMovieForm, RegistrationForm, LoginForm, VerifyUserForm, AdminForm, UpdateAccountForm
+from manflix.forms import AddMovieForm, SearchMovieForm, RegistrationForm, LoginForm, VerifyUserForm, AdminForm, UpdateAccountForm, UpdateMovieForm
 from manflix.models import Movies, UserData
 
 #------------------- All Pages ---------------------
@@ -120,7 +120,7 @@ def account():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
-    image_file = url_for('static',filename='Icons/' + current_user.avatar)
+    image_file = url_for('static',filename='Avatars/' + current_user.avatar)
     return render_template('account.html',image_file=image_file,form=form)
 
 # Log Out
@@ -142,7 +142,6 @@ def home():
 @app.route('/add_movies', methods=['GET', 'POST'])
 @login_required
 def add_movies():
-    curr_page = 'add_movies'
     form1 = AddMovieForm()    
     if request.method == 'POST':
         if form1.validate_on_submit():
@@ -160,26 +159,25 @@ def add_movies():
             db.session.add(movie)
             db.session.commit()
             flash(f'{ title } - Added Successfully!', 'success')
-            return render_template('add_movies.html', form1=form1,current=curr_page)   
+            return render_template('add_movies.html', form1=form1)   
         else:
             search = request.form["searched"]    
             movie_id = get_movie_id(search)    
             if movie_id:
-                return render_template('add_movies.html', movie_id=movie_id, search=search,form1=form1,current=curr_page)
+                return render_template('add_movies.html', movie_id=movie_id, search=search,form1=form1)
             else:
                 flash(f'{ search } - Not Found!', 'danger')
-                return render_template('add_movies.html', form1=form1,current=curr_page)                  
-    return render_template('add_movies.html', form1=form1,current=curr_page)
+                return render_template('add_movies.html', form1=form1)                  
+    return render_template('add_movies.html', form1=form1)
 
 # Movie Database Page
 @app.route('/movie_database')
 @login_required
-def movie_database():
-    curr_page = 'movie_database'
+def movie_database():    
     all_movies = Movies.query.all()
-    return render_template('movie_database.html', all_movies=all_movies,current=curr_page)
+    return render_template('movie_database.html', all_movies=all_movies)
 
-# Searh Movie Page In Database
+# Search Movie Page In Database
 @app.route('/search_movies', methods=['POST'])
 @login_required
 def search_movies():
@@ -219,18 +217,21 @@ def delete(id):
 @login_required
 def update(id):
     movie = Movies.query.filter_by(id=id).first()
+    form1 = UpdateMovieForm(obj=movie)    
     if request.method == 'POST':
-        movie.title = request.form['title']
-        movie.year = request.form['year']
-        movie.link = request.form['link']
-        quality = request.form.get('quality')
-        if quality == False:
-            quality = True
-        elif quality == True:
-            quality = False
-        db.session.commit()
-        return redirect(location='/')
-    return render_template('update_movie.html', movie=movie)
+        if form1.validate_on_submit():           
+            form1.populate_obj(movie)
+            movie_id_tmd = form1.movie_id_tmd.data
+            if movie_id_tmd != movie.movie_id_tmd:
+                print('Getting New Data')
+                movie.poster_link = get_movie_detail(1, movie_id_tmd)
+                movie.title = get_movie_detail(2, movie_id_tmd)
+                movie.movie_release_year = get_movie_detail(3, movie_id_tmd)
+                movie.movie_backdrop_link = get_movie_detail(4, movie_id_tmd)
+                movie.trailer_link = get_movie_detail(6, movie_id_tmd)
+            db.session.commit()
+            flash(f'Updated Successfully', 'success')  
+    return render_template('update_movie.html', movie=movie,form1=form1)
 
 
 #------------------- All Error Pages ---------------------

@@ -1,7 +1,7 @@
 body {
-	background-image: url( '../static/Image/blob-scene-haikei.svg' );
 	background-repeat: no-repeat;
 	background-size: cover !important;
+	background: url('../Image/blob-scene-haikei.svg');
 }
 
 @keyframes gradient {

@@ -1,31 +1,46 @@
 {% extends 'base.html' %}
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='button.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+<link rel="stylesheet" href="../static/Styles/Component/button.css">
+<link rel="stylesheet" href="../static/Styles/Component/form.css">
 {% endblock %}
-{% block title %} Update {% endblock %}
+{% block title %} 📝 {% endblock %}
 {% block body %}
 <!-- Form -->
-<div class="container m-2">
+<div class="container">
     <form action="/update/{{movie.id}}" method="post">
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Movie Title</label>
-            <input type="text" class="form-control" name="title" value="{{movie.title}}" id="exampleInputEmail1" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Year</label>
-            <input type="text" class="form-control" name="year" value="{{movie.year}}" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Link</label>
-            <input type="text" class="form-control" name="link" value="{{movie.link}}" id="exampleInputPassword1">
-        </div>
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">TMDB Movie ID</label>
-            <input type="text" required class="form-control" name="movie_id_tmd" value="{{movie.movie_id_tmd}} id="exampleInputPassword1">
-        </div>      
-        <button type="submit" class="btn btn-outline-warning">Update</button>
+        {{ form1.hidden_tag() }}
+        <fieldset class="form-group mt-2">
+            <!-- Link -->
+            <div class="form-group mt-2">                
+                {{ form1.link(class="form-style") }}
+                <span class="iconify input-icon" data-icon="ant-design:link-outlined"></span>
+            </div>
+            <!-- Movie ID -->
+            <div class="form-group mt-2">
+                {{ form1.movie_id_tmd(class="form-style") }}
+                <span class="iconify input-icon" data-icon="emojione-monotone:id-button"></span>
+            </div>
+            <!-- Quality -->
+            <div class="form-group mt-2">
+                {{ form1.quality(class="form-check-input") }}
+                <span class="iconify" data-icon="bi:badge-hd"></span>
+            </div>
+            <!-- Dolby Audio -->
+            <div class="form-group mt-2">
+                {{ form1.dolby_audio(class="form-check-input") }}
+                <span class="iconify" data-icon="simple-icons:dolby"></span>
+            </div>
+            <!-- Dual Audio -->
+            <div class="form-group mt-2">
+                {{ form1.dual_audio(class="form-check-input") }}
+                <span class="iconify" data-icon="uil:letter-hindi-a"></span>
+                <span class="iconify" data-icon="icon-park-outline:english"></span>
+            </div>
+            <!-- Submit -->
+            <div class="form-group mt-2">
+                {{ form1.submit(class="btn-mp btn-outline-success") }}
+            </div>
+        </fieldset>
     </form>
 </div>
-
 {% endblock %}
