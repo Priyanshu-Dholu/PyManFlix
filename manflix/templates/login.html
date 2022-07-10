@@ -33,6 +33,11 @@
                             <span class="iconify input-icon" data-icon="bi:key"></span>
                         </div>
 
+                        <div class="form-group mt-2">   
+                            {{ form.remember(class="form-check-input") }}      
+                            {{ form.remember.label }}              
+                        </div>
+
                         <div class="form-group d-grid mt-2">
                             {{ form.submit(class="btn-mp btn-outline-success") }}
                         </div>

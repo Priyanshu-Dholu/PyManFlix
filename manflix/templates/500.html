@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block styles %}
-<link rel="stylesheet" href="../static/Styles/404_500.css">
+<link rel="stylesheet" href="{{ url_for('static',filename='Styles/404_500.css') }}">
 {% endblock %}
 {% block title %} ✖ {% endblock %}
 {% block body %}

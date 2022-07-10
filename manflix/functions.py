@@ -14,7 +14,7 @@ def get_movie_detail(operation, movie_id_tmd):
         link = f'https://image.tmdb.org/t/p/w220_and_h330_face/{m.poster_path}'
         return link
     elif operation == 2:
-        return f'{m.original_title}'
+        return f'{m.title}'
     elif operation == 3:
         return int(m.release_date[:4])
     elif operation == 4:
@@ -22,8 +22,28 @@ def get_movie_detail(operation, movie_id_tmd):
     elif operation == 5:
         return f'{m.overview}'
     elif operation == 6:
-        link = m['videos']['results'][0]["key"]           
-        return 'https://www.youtube.com/embed/' + link
+        try:
+            link = m['videos']['results'][0]["key"]           
+            return 'https://www.youtube.com/embed/' + link
+        except:
+            return 'https://www.youtube.com/embed/_W0bSen8Qjg'
+    elif operation == 7:
+        # User Split To Get Category List in Used Func
+        movie_category = []
+        try:
+            c = []
+            j = 0
+            for i in m.genres:
+                i = m.genres[j]['name']
+                c.append(i)
+                j = j+1
+            movie_category = str(c)
+            specialChars = "[]',"
+            for specialChar in specialChars:
+                movie_category = movie_category.replace(specialChar, '')
+            return movie_category
+        except:            
+            return 'Not Categorized'
     else:
         return 'Error'
 

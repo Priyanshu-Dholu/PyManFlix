@@ -2,7 +2,7 @@
 {% block styles %} 
 <!-- Video JS CSS -->
 <link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" />
-<link rel="stylesheet" href="../static/Styles/Component/form.css">
+<link rel="stylesheet" href="{{ url_for('static',filename='Styles/Component/form.css') }}">
 {% endblock %}
 {% block title %} 🎬 {% endblock %}
 {% block body %}

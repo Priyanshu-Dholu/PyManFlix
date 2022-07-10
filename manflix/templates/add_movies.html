@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block styles %}
-<link rel="stylesheet" href="../static/Styles/Component/button.css">
-<link rel="stylesheet" href="../static/Styles/Component/form.css">
+<link rel="stylesheet" href="{{ url_for('static',filename='Styles/Component/button.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='Styles/Component/form.css') }}">
 {% endblock styles %}
 {% block styled %}
 <style>

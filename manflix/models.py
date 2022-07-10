@@ -12,6 +12,7 @@ class Movies(db.Model):
     link = db.Column(db.String(500))
     quality = db.Column(db.Boolean)
     movie_id_tmd = db.Column(db.Integer)
+    category = db.Column(db.String(200))
     movie_release_year = db.Column(db.Integer)
     poster_link = db.Column(db.String(500))
     movie_backdrop_link = db.Column(db.String(500))    
@@ -20,7 +21,7 @@ class Movies(db.Model):
     dual_audio = db.Column(db.Boolean)
 
     def __repr__(self) -> str:
-        return f"movies('{self.title}','{self.link}',{self.quality}',{self.movie_release_year},'{self.dolby_audio}','{self.dual_audio},{self.poster_link},{self.movie_id_tmd}','{self.movie_backdrop_link}','{self.trailer_link}')"
+        return f"movies('{self.title}','{self.category}','{self.link}',{self.quality}',{self.movie_release_year},'{self.dolby_audio}','{self.dual_audio},{self.poster_link},{self.movie_id_tmd}','{self.movie_backdrop_link}','{self.trailer_link}')"
 
 # User Database
 class UserData(db.Model,UserMixin):

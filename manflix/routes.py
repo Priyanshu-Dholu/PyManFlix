@@ -107,6 +107,7 @@ def become_admin():
     
     return render_template('become_admin.html',form=form)
 
+# Account Info Page
 @app.route('/account',methods=['GET','POST'])
 def account():
     form = UpdateAccountForm()
@@ -135,7 +136,6 @@ def logout():
 def home():
     page = request.args.get('page',1,type = int)
     all_movies = Movies.query.order_by(Movies.id.desc()).paginate(per_page = 3)
-    
     return render_template('home.html', all_movies=all_movies)
 
 # Add Movie Page
@@ -155,7 +155,8 @@ def add_movies():
             movie_release_year = get_movie_detail(3, movie_id_tmd)
             movie_backdrop_link = get_movie_detail(4, movie_id_tmd)            
             trailer_link = get_movie_detail(6, movie_id_tmd)
-            movie = Movies(title=title, link=link, quality=quality,movie_release_year=movie_release_year, movie_id_tmd=movie_id_tmd, poster_link=poster_link, movie_backdrop_link=movie_backdrop_link,trailer_link=trailer_link, dolby_audio=dolby_audio, dual_audio=dual_audio)
+            category = get_movie_detail(7, movie_id_tmd)
+            movie = Movies(title=title, link=link,category=category, quality=quality,movie_release_year=movie_release_year, movie_id_tmd=movie_id_tmd, poster_link=poster_link, movie_backdrop_link=movie_backdrop_link,trailer_link=trailer_link, dolby_audio=dolby_audio, dual_audio=dual_audio)
             db.session.add(movie)
             db.session.commit()
             flash(f'{ title } - Added Successfully!', 'success')
