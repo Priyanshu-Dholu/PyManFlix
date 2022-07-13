@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static',filename='Styles/home.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='Styles/Component/button.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename='Styles/Component/form.css') }}">
+{% endblock styles %}
+{% block title %} 🏠 {% endblock %}
+{% block body %}
+<div class="container">
+    <h4 class="text-center text-muted text-white mt-2">
+        Category: {{ m }}
+    </h4>
+</div>
+<div class="container">
+    <div class="row">
+        <!-- Movie Starts -->
+        {% for mov in movie.items %}
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalFullscreen-{{ mov.id }}" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">{{ mov.title }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <iframe src="{{ mov.trailer_link }}" width="100%" height="100%" frameborder="0"></iframe>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Ends -->
+        <div class="movie_card">
+            <div class="info_section">
+                <div class="movie_header">
+                    <img src="{{ mov.poster_link }}" alt="Watch Trailer" id="image-poster" class="btn locandina"
+                        role="button" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen-{{ mov.id }}">
+                    <h1>{{ mov.title }}</h1>
+                    <h4>{{ mov.category }}</h4>
+                    <h4>{{ mov.movie_release_year }}</h4>
+                    {% if mov.dual_audio == 1 %}
+                    <span class="iconify change-color" data-icon="uil:letter-hindi-a"></span>
+                    <span class="iconify change-color" data-icon="icon-park-outline:english"></span>
+                    {% else %}
+                    <span class="iconify change-color" data-icon="icon-park-outline:english"></span>
+                    {% endif %}
+                    {% if mov.quality == 1 and mov.dolby_audio == 1 %}
+                    <span class="iconify change-color" data-icon="bi:badge-hd"></span>
+                    <span class="iconify change-color" data-icon="simple-icons:dolby"></span>
+                    {% elif mov.quality == 1 and mov.dolby_audio == 0%}
+                    <span class="iconify change-color" data-icon="bi:badge-hd"></span>
+                    <span class="iconify change-color" data-icon="cil:audio-description"></span>
+                    {% elif mov.quality == 0 and mov.dolby_audio == 1 %}
+                    <span class="iconify change-color" data-icon="bi:badge-sd"></span>
+                    <span class="iconify change-color" data-icon="simple-icons:dolby"></span>
+                    {% else %}
+                    <span class="iconify change-color" data-icon="bi:badge-sd"></span>
+                    <span class="iconify change-color" data-icon="cil:audio-description"></span>
+                    {% endif %}
+                </div>
+                <div id="{{ mov.id }}">
+                    <div class="btn-group btn-group-sm ms-3 mt-4" id="button-group-main" role="group"
+                        aria-label="Basic mixed styles example">
+                        <a href="/movie_screen/{{ mov.id }}" class="btn btn-outline-danger" role="button"><span
+                                class="iconify" data-icon="ant-design:play-circle-outlined" data-width="30"
+                                data-height="30"></span></a>
+                        <a href="{{ mov.link[:-1] + '1' }}" class="btn btn-outline-danger" role="button"><span
+                                class="iconify" data-icon="akar-icons:arrow-down" data-width="30"
+                                data-height="30"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="blur_back" style="
+            background: url('{{ mov.movie_backdrop_link }}');
+            background-size: cover;
+            box-shadow: 0px 0px 100px -45px rgba(255, 51, 0, 0.5);          
+            ">
+            </div>
+        </div>
+        {% endfor %}
+        <!-- Pagination -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center mt-3">
+                {% for page_num in movie.iter_pages(left_edge=1, right_edge=1, left_current=1,right_current=2) %}
+                {% if page_num %}
+                {% if movie.page == page_num %}
+                <li class="page-item active"><a class="page-link" href="{{ url_for('category',cat='m',page=page_num) }}">{{ page_num
+                        }}</a>
+                </li>
+                {% else %}
+                <li class="page-item"><a class="page-link" href="{{ url_for('category',cat='m',page=page_num) }}">{{ page_num }}</a>
+                </li>
+                {% endif %}
+                {% else %}
+                <li class="page-item"><a class="page-link" href="#">...</a></li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+</div>
+
+{% endblock %}

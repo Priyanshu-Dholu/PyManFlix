@@ -1,6 +1,6 @@
 body {
-	background-repeat: no-repeat;
 	background-size: cover !important;
+	background-repeat: no-repeat !important;
 	background: url('../Image/blob-scene-haikei.svg');
 }
 
@@ -139,6 +139,7 @@ body {
 	font-size: 19px;
 	cursor: pointer;
 }
+
 
 .movie_card .blur_back {
 	position: absolute;

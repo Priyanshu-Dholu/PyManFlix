@@ -4,10 +4,8 @@
     --nav-link-load-time: 500ms;
     --article-load-delay: calc(var(--nav-load-time) + var(--nav-link-load-time))
 }
-body {
-	background-image: url( '../static/Image/stacked-peaks-haikei.svg' );
-	background-repeat: no-repeat;
-	background-size: cover !important;
+html{
+	min-height: 100%;
 }
 img {
     image-rendering: -moz-crisp-edges;
