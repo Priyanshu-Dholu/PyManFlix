@@ -8,22 +8,22 @@
 {% block body %}
 
 <div class="container mt-2">
-  <ul class="nav nav-pills mb-3" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="pills-Action-tab" data-bs-toggle="pill" data-bs-target="#pills-Action"
-        type="button" role="tab" aria-controls="pills-Action" aria-selected="true">Action</button>
+  <ul class="nav nav-pills mb-3" role="tablist">
+    <li class="nav-item">
+      <button class="nav-link active btn-mp m-1" id="pills-Action-tab" data-bs-toggle="pill" data-bs-target="#pills-Action"
+        type="button" role="tab" aria-controls="pills-Action" aria-selected="true">Action <span class="iconify" data-icon="material-symbols:add-reaction-outline-rounded" data-width="30" data-height="30"></span></button>
     </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="pills-Adventure-tab" data-bs-toggle="pill" data-bs-target="#pills-Adventure"
-        type="button" role="tab" aria-controls="pills-Adventure" aria-selected="false">Adventure</button>
+    <li class="nav-item">
+      <button class="nav-link btn-mp m-1" id="pills-Adventure-tab" data-bs-toggle="pill" data-bs-target="#pills-Adventure"
+        type="button" role="tab" aria-controls="pills-Adventure" aria-selected="false">Adventure <span class="iconify" data-icon="icons8:adventures" data-width="30" data-height="30"></span></button>
     </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="pills-Animation-tab" data-bs-toggle="pill" data-bs-target="#pills-Animation"
-        type="button" role="tab" aria-controls="pills-Animation" aria-selected="false">Animation</button>
+    <li class="nav-item">
+      <button class="nav-link btn-mp m-1" id="pills-Animation-tab" data-bs-toggle="pill" data-bs-target="#pills-Animation"
+        type="button" role="tab" aria-controls="pills-Animation" aria-selected="false">Animation <span class="iconify" data-icon="ic:baseline-animation" data-width="30" data-height="30"></span></button>
     </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="pills-Science-tab" data-bs-toggle="pill" data-bs-target="#pills-Science"
-        type="button" role="tab" aria-controls="pills-Science" aria-selected="false">Science</button>
+    <li class="nav-item">
+      <button class="nav-link btn-mp m-1" id="pills-Science-tab" data-bs-toggle="pill" data-bs-target="#pills-Science"
+        type="button" role="tab" aria-controls="pills-Science" aria-selected="false">Science <span class="iconify" data-icon="material-symbols:science-outline" data-width="30" data-height="30"></span></button>
     </li>
   </ul>
   <div class="tab-content" id="pills-tabContent">
@@ -292,7 +292,7 @@
         <div class="movie_card">
           <div class="info_section">
             <div class="movie_header">
-              <img src="{{ mov.poster_link }}" alt="Watch Trailer" id="image-poster" class="locandina" role="button"
+              <img src="{{ mov.poster_link }}" alt="Watch Trailer" id="image-poster" class="btn locandina" role="button"
                 data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen-{{ mov.id }}">
               <h1>{{ mov.title }}</h1>
               <h4>{{ ', '.join(mov.category.split()[:3]) }}</h4>

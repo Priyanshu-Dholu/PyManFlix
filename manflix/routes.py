@@ -139,7 +139,6 @@ def home():
     adventure_movies = Movies.query.filter(Movies.category.contains('Adventure')).paginate(per_page = 3)
     animation_movies = Movies.query.filter(Movies.category.contains('Animation')).paginate(per_page = 3)
     science_movies = Movies.query.filter(Movies.category.contains('Science')).paginate(per_page = 3)
-    categories = [action_movies,adventure_movies,animation_movies,]
     return render_template('home.html',act_mov=action_movies,
     adv_mov = adventure_movies,
     ani_mov = animation_movies,
@@ -150,7 +149,7 @@ def home():
 @app.route('/category/<cat>')
 @login_required
 def category(cat):
-    m = str(cat)
+    m = str(cat)    
     print(m)
     movie = Movies.query.filter(Movies.category.contains(m)).paginate(per_page = 5)
     return render_template('category_movie.html',movie=movie,m=m)

@@ -8,7 +8,7 @@
 {% block body %}
 <div class="container">
     <h4 class="text-center text-muted text-white mt-2">
-        Category: {{ m }}
+        Category: {{ title }}
     </h4>
 </div>
 <div class="container">
@@ -40,7 +40,7 @@
                     <img src="{{ mov.poster_link }}" alt="Watch Trailer" id="image-poster" class="btn locandina"
                         role="button" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen-{{ mov.id }}">
                     <h1>{{ mov.title }}</h1>
-                    <h4>{{ mov.category }}</h4>
+                    <h4>{{ ', '.join(mov.category.split()[:3]) }}</h4>
                     <h4>{{ mov.movie_release_year }}</h4>
                     {% if mov.dual_audio == 1 %}
                     <span class="iconify change-color" data-icon="uil:letter-hindi-a"></span>
