@@ -28,10 +28,15 @@
 }
 
 .btn-mp:active,
-.btn:focus {
+.btn-mp:focus {
     background-color: #102770;
     color: #ffeba7;
     box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
+}
+
+.btn-outline-danger.focus, .btn-outline-danger:focus {
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
 }
 
 .btn-mp:hover {

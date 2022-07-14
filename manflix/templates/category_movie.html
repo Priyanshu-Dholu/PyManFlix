@@ -8,13 +8,14 @@
 {% block body %}
 <div class="container">
     <h4 class="text-center text-muted text-white mt-2">
-        Category: {{ title }}
+        {{ m }}
+        {% set cate = m %}
     </h4>
 </div>
-<div class="container">
-    <div class="row">
+<div class="container">  
+    <div class="row">        
         <!-- Movie Starts -->
-        {% for mov in movie.items %}
+        {% for mov in movie.items %}                    
         <!-- Modal -->
         <div class="modal fade" id="exampleModalFullscreen-{{ mov.id }}" tabindex="-1"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -40,7 +41,7 @@
                     <img src="{{ mov.poster_link }}" alt="Watch Trailer" id="image-poster" class="btn locandina"
                         role="button" data-bs-toggle="modal" data-bs-target="#exampleModalFullscreen-{{ mov.id }}">
                     <h1>{{ mov.title }}</h1>
-                    <h4>{{ ', '.join(mov.category.split()[:3]) }}</h4>
+                    <h4>{{ ', '.join(mov.category.split()[:3]) }}</h4>                                    
                     <h4>{{ mov.movie_release_year }}</h4>
                     {% if mov.dual_audio == 1 %}
                     <span class="iconify change-color" data-icon="uil:letter-hindi-a"></span>
@@ -82,17 +83,18 @@
             </div>
         </div>
         {% endfor %}
+        
         <!-- Pagination -->
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center mt-3">
                 {% for page_num in movie.iter_pages(left_edge=1, right_edge=1, left_current=1,right_current=2) %}
                 {% if page_num %}
                 {% if movie.page == page_num %}
-                <li class="page-item active"><a class="page-link" href="{{ url_for('category',cat='m',page=page_num) }}">{{ page_num
+                <li class="page-item active"><a class="page-link" href="{{ url_for('category',cat=cate,page=page_num) }}">{{ page_num
                         }}</a>
                 </li>
                 {% else %}
-                <li class="page-item"><a class="page-link" href="{{ url_for('category',cat='m',page=page_num) }}">{{ page_num }}</a>
+                <li class="page-item"><a class="page-link" href="{{ url_for('category',cat=cate,page=page_num) }}">{{ page_num }}</a>
                 </li>
                 {% endif %}
                 {% else %}
@@ -103,5 +105,4 @@
         </nav>
     </div>
 </div>
-
 {% endblock %}

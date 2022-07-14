@@ -149,9 +149,8 @@ def home():
 @app.route('/category/<cat>')
 @login_required
 def category(cat):
-    m = str(cat)    
-    print(m)
-    movie = Movies.query.filter(Movies.category.contains(m)).paginate(per_page = 5)
+    m = cat
+    movie = Movies.query.filter(Movies.category.contains(cat)).paginate(per_page = 1)
     return render_template('category_movie.html',movie=movie,m=m)
 
 # Add Movie Page
