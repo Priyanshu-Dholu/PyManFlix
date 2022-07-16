@@ -2,14 +2,12 @@
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static',filename='Styles/Component/button.css') }}">
 <link rel="stylesheet" href="{{ url_for('static',filename='Styles/Component/form.css') }}">
-{% endblock %}
-{% block styled %}
 <style>
-  body {
-    background-image: url('../static/Image/stacked-peaks-haikei.svg');
-    background-repeat: no-repeat;
-    background-size: cover !important;
-  }
+    body {
+        background-image: url('../static/Image/stacked-peaks-haikei.svg');
+        background-repeat: no-repeat;
+        background-size: cover !important;
+    }
 </style>
 {% endblock %}
 {% block title %} 👥 {% endblock %}
@@ -79,9 +77,9 @@
                             {% endif %}
                         </div>
                         <div class="form-group m-1">
-                            {{ form.user_avatar(class="form-style") }} 
-                            <span class="iconify input-icon" data-icon="pixelarticons:avatar"></span>                           
-                        </div>                        
+                            {{ form.user_avatar(class="form-style") }}
+                            <span class="iconify input-icon" data-icon="pixelarticons:avatar"></span>
+                        </div>
                         <div class="form-group d-grid mt-1">
                             {{ form.submit(class="btn-mp btn-outline-success") }}
                         </div>

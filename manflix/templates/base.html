@@ -11,13 +11,10 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='Styles/base.css') }}">
     <!-- Facicon -->
     <link rel="shortcut icon" href="../static/Favicon/favicon.ico">
-    <!-- External CSS -->
+    <!-- External CSS / Inline CSS-->
     {% block styles %}
 
     {% endblock styles %}
-    <!-- Inline CSS -->
-    {% block styled %}
-    {% endblock styled %}
     <title>
         {% block title %}
 
@@ -38,20 +35,28 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" id="video-icon" href="{{ url_for('home') }}"><span class="iconify"
-                                data-icon="akar-icons:video" data-width="30" data-height="30"></span></a>
+                        <a class="nav-link" id="video-icon" href="{{ url_for('home') }}">
+                            <span class="iconify" data-icon="akar-icons:video" data-width="30" data-height="30"></span>
+                        </a>
                     </li>
                     {% if current_user.is_admin == True %}
                     <li class="nav-item">
-                        <a class="nav-link" id="admin-icon" aria-current="page" href="{{ url_for('add_movies') }}"><span
-                                class="iconify" data-icon="carbon:add-alt" data-width="30" data-height="30"></span></a>
+                        <a class="nav-link" id="admin-icon" href="{{ url_for('add_movies') }}">
+                            <span class="iconify" data-icon="carbon:add-alt" data-width="30" data-height="30"></span>
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="db-icon" aria-current="page"
-                            href="{{ url_for('movie_database') }}"><span class="iconify" data-icon="codicon:database"
-                                data-width="30" data-height="30"></span></a>
+                        <a class="nav-link" id="db-icon"
+                            href="{{ url_for('movie_database') }}">
+                            <span class="iconify" data-icon="codicon:database" data-width="30" data-height="30"></span>
+                        </a>
                     </li>
                     {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" id="heart-icon" href="{{ url_for('liked_movies') }}">
+                            <span class="iconify" data-icon="ant-design:heart-outlined" data-width="30" data-height="30"></span>
+                        </a>
+                    </li>
                     {% endif %}
                 </ul>
 

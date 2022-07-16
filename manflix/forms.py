@@ -39,7 +39,7 @@ class RegistrationForm(FlaskForm):
     ('6', 'Wasp'),
     ('7', 'Black Panther'),
     ('8', 'Thanos'),
-    ('9','Baymanx'),
+    ('9','Baymax'),
     ('10', 'Phineas'),
     ('11', 'Perry'),
     ('12', 'Ferb'),

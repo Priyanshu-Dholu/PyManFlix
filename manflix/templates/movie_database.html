@@ -2,14 +2,12 @@
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static',filename='Styles/Component/button.css') }}">
 <link rel="stylesheet" href="{{ url_for('static',filename='Styles/Component/form.css') }}">
-{% endblock %}
-{% block styled %}
 <style>
-  body {
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
-    background:url('../static/Image/stacked-peaks-haikei.svg');    
-  }
+    body {
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+        background: url('../static/Image/stacked-peaks-haikei.svg');
+    }
 </style>
 {% endblock %}
 {% block title %} 🎞 {% endblock %}
@@ -27,7 +25,7 @@
                     <th scope="col">Link</th>
                     <th scope="col">Language</th>
                     <th scope="col">Quality</th>
-                    <th scope="col">Audio</th>                
+                    <th scope="col">Audio</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,10 +38,10 @@
                     <td>{{mov.link[0:5]}}</td>
                     <td>
                         {% if mov.dual_audio == 1 %}
-                            <span class="iconify" data-icon="uil:letter-hindi-a"></span>
-                            <span class="iconify" data-icon="icon-park-outline:english"></span>
+                        <span class="iconify" data-icon="uil:letter-hindi-a"></span>
+                        <span class="iconify" data-icon="icon-park-outline:english"></span>
                         {% else %}
-                            <span class="iconify" data-icon="icon-park-outline:english"></span>
+                        <span class="iconify" data-icon="icon-park-outline:english"></span>
                         {% endif %}
                     </td>
                     <td>
@@ -63,7 +61,7 @@
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                             <a href="/update/{{mov.id}}" class="btn btn-outline-warning" role="button">Update</a>
-                            <a href="/delete/{{mov.id}}" class="btn btn-outline-danger" role="button">Delete</a>                       
+                            <a href="/delete/{{mov.id}}" class="btn btn-outline-danger" role="button">Delete</a>
                         </div>
                     </td>
                 </tr>

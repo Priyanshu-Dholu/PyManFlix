@@ -153,6 +153,28 @@ def category(cat):
     movie = Movies.query.filter(Movies.category.contains(cat)).paginate(per_page = 1)
     return render_template('category_movie.html',movie=movie,m=m)
 
+# Like Movie Function
+@app.route('/like/<int:mid>/<action>')
+@login_required
+def like_action(mid, action):
+    movie = Movies.query.filter_by(id=mid).first_or_404()
+    if action == 'like':
+        current_user.like_movie(movie)
+        flash(f'{movie.title} - Added To Favourites','success')
+        db.session.commit()
+    if action == 'unlike':
+        current_user.unlike_movies(movie)
+        db.session.commit()
+    return redirect(request.referrer)
+
+# Liked Movie Page
+@app.route('/liked_movies')
+@login_required
+def liked_movies():
+    user = current_user
+    movies = Movies.query.all()
+    return render_template('liked_movies.html',user=current_user,movies=movies)
+
 # Add Movie Page
 @app.route('/add_movies', methods=['GET', 'POST'])
 @login_required

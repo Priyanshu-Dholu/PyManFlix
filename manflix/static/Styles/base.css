@@ -107,6 +107,15 @@ img {
     color: rgb(240, 9, 9);
 }
 
+#heart-icon:hover {
+    transition: all 0.5s ease-in-out;
+    color: rgb(240, 9, 9);
+}
+
+#heart-icon{
+    transition: all 0.5s ease-in-out;
+}
+
 #admin-icon {
     transition: all 0.5s ease-in-out;
 }
