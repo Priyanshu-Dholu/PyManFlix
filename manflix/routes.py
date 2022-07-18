@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, flash, url_for, session
 from flask_login import login_user, current_user, logout_user, login_required
+from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from random import randint
 from smtplib import SMTP
@@ -238,6 +239,15 @@ def movie_screen(id):
 def del_inactive_user():
     UserData.query.filter_by(is_verified=False).delete() 
     db.session.commit()
+
+    # Sending Notification
+    smtp_server = SMTP('smtp.gmail.com', 587)
+    smtp_server.ehlo()
+    smtp_server.starttls()
+    smtp_server.login('johnharrison12587@gmail.com', 'fhwrnydeedhztaso')
+    message = 'Subject: {}\n\n{}'.format('Deleted User: ' + str(datetime.datetime.now()), 'Deleted Inactive Users!') 
+    smtp_server.sendmail('johnharrison12587@gmail.com', 'kpop.opai@dralias.com', message)
+    smtp_server.quit()  
     print('Deleted InActive User!')
 
 sched = BackgroundScheduler(daemon=True)
