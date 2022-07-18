@@ -251,7 +251,7 @@ def del_inactive_user():
     print('Deleted InActive User!')
 
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(del_inactive_user,'interval',minutes=1440)
+sched.add_job(del_inactive_user,'interval',minutes=3)
 sched.start()
 
 # Like Movie Function
