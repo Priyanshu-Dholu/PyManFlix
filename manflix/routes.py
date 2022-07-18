@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, flash, url_for, session
 from flask_login import login_user, current_user, logout_user, login_required
-from datetime import datetime
+import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from random import randint
 from smtplib import SMTP
