@@ -1,6 +1,6 @@
 <h1 align="center" id="title">ManFlix</h1>
 
-<p id="description">A Simple Netflix Alternative</p>
+<p id="description">Simple Flask Template For Movie Collectors</p>
 
 <h2>🚀 Demo</h2>
 
@@ -21,4 +21,3 @@ Here're some of the project's best features:
 *   Simple GUI
 *   Ad Free
 *   Easy To Use
-*   No Buffer
