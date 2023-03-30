@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,6 +12,10 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='Styles/base.css') }}">
     <!-- Facicon -->
     <link rel="shortcut icon" href="../static/Favicon/favicon.ico">
+    <meta property="og:image" content="https://i.ibb.co/dkTQ5kg/favicon.jpg" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="ManFlix" />
     <!-- External CSS / Inline CSS-->
     {% block styles %}
 
@@ -23,6 +28,7 @@
 </head>
 
 <body>
+
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-md">
             <a class="navbar-brand" id="navbar-icon" href="{{ url_for('index') }}">ManFlix</a>
@@ -46,15 +52,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="db-icon"
-                            href="{{ url_for('movie_database') }}">
+                        <a class="nav-link" id="db-icon" href="{{ url_for('movie_database') }}">
                             <span class="iconify" data-icon="codicon:database" data-width="30" data-height="30"></span>
                         </a>
                     </li>
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" id="heart-icon" href="{{ url_for('liked_movies') }}">
-                            <span class="iconify" data-icon="ant-design:heart-outlined" data-width="30" data-height="30"></span>
+                            <span class="iconify" data-icon="ant-design:heart-outlined" data-width="30"
+                                data-height="30"></span>
                         </a>
                     </li>
                     {% endif %}
@@ -98,7 +104,7 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid bg">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category,message in messages %}

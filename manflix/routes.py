@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, flash, url_for, session
 from flask_login import login_user, current_user, logout_user, login_required
 import datetime
-from apscheduler.schedulers.background import BackgroundScheduler
 from random import randint
 from smtplib import SMTP
 from manflix import app, db, bcrypt
@@ -196,8 +195,10 @@ def add_movies():
                     return render_template('add_movies.html', movie_id=movie_id, search=search,form1=form1)
                 else:
                     flash(f'{ search } - Not Found!', 'danger')
-                    return render_template('add_movies.html', form1=form1)                  
-    return redirect(url_for('home'))
+                    return render_template('add_movies.html', form1=form1)          
+        return render_template('add_movies.html', form1=form1) 
+    else:       
+        return redirect(url_for('home'))
 
 # Movie Database Page
 @app.route('/movie_database')
