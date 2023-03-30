@@ -8,7 +8,7 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://i.ibb.co/PwfMbC2/image.png" width="45%"></img> <img src="https://i.ibb.co/cFBXHmq/image.png" width="45%"></img> <img src="https://i.ibb.co/5LLWdqN/image.png" width="45%"></img> <img src="https://i.ibb.co/0ZrkXM8/image.png" width="45%"></img>
+<img src="https://i.ibb.co/PwfMbC2/image.png" width="45%"></img><img src="https://i.ibb.co/5LLWdqN/image.png" width="45%"></img> <img src="https://i.ibb.co/0ZrkXM8/image.png" width="45%"></img>
   
   
 <h2>🧐 Features</h2>
